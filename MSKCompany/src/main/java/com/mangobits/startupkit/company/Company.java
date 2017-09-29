@@ -216,6 +216,8 @@ public class Company {
 	private String idUserB;
 	
 	
+	private String idPlan;
+	
 	
 	public Company(){
 		
@@ -589,5 +591,15 @@ public class Company {
 
 	public void setIdUserB(String idUserB) {
 		this.idUserB = idUserB;
+	}
+
+
+	public String getIdPlan() {
+		return idPlan;
+	}
+
+
+	public void setIdPlan(String idPlan) {
+		this.idPlan = idPlan;
 	}
 }

@@ -170,7 +170,7 @@ public class CompanyRestService extends BaseRestService{
 	
 	
 	
-	@SecuredAdmin
+	//@SecuredAdmin//Comentado dia 29/09/2017. O Diegao ficou de implementar nova anotação de segurança
 	@GET
 	@Path("/load/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")

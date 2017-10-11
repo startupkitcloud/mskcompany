@@ -160,7 +160,6 @@ public class Company {
 	
 	
 	
-	@JsonIgnore
 	@IndexedEmbedded(includeEmbeddedObjectId=true)
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<Category> categories;
@@ -210,10 +209,6 @@ public class Company {
 	
 	@Field
 	private String idSalesMan;
-	
-	
-	
-	private String idUserB;
 	
 	
 	private String idPlan;
@@ -584,16 +579,6 @@ public class Company {
 	}
 
 
-	public String getIdUserB() {
-		return idUserB;
-	}
-
-
-	public void setIdUserB(String idUserB) {
-		this.idUserB = idUserB;
-	}
-
-
 	public String getIdPlan() {
 		return idPlan;
 	}
@@ -602,4 +587,6 @@ public class Company {
 	public void setIdPlan(String idPlan) {
 		this.idPlan = idPlan;
 	}
+
+	
 }

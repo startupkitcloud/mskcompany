@@ -60,4 +60,7 @@ public interface CompanyService{
 	
 	
 	CompanyApp load(String idCompany) throws BusinessException, ApplicationException;
+
+
+	void saveCompany(Company company) throws ApplicationException, BusinessException;
 }

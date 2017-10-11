@@ -146,9 +146,9 @@ public class CompanyRestService extends BaseRestService{
 		
 		try { 
 			
-			companyService.save(company);
+			companyService.saveCompany(company);
 			cont.setData(company);
-
+			
 		} catch (Exception e) {
 			
 			if(!(e instanceof BusinessException)){

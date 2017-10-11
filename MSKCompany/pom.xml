@@ -3,7 +3,7 @@
   	<modelVersion>4.0.0</modelVersion>
     <groupId>com.mangobits.startupkit.company</groupId>
     <artifactId>MSKCompany</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.9</version>
     <packaging>ejb</packaging>
  
     <name>${project.groupId}:${project.artifactId}</name>
@@ -55,7 +55,7 @@
 		<msk-user-version>1.0.53</msk-user-version>
 		<msk-rs-version>1.0.2</msk-rs-version>
 		<msk-payment-version>1.0.13</msk-payment-version>
-		<msk-admin-version>1.0.28</msk-admin-version>
+		<msk-admin-version>1.0.32</msk-admin-version>
 		<msk-catalogue-version>1.0.23</msk-catalogue-version>
 		<msk-notification-version>1.0.25</msk-notification-version>
     </properties> 

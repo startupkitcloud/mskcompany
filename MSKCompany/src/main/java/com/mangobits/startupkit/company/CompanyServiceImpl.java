@@ -81,7 +81,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	
-
+	@Deprecated
 	@Override
 	public void save(Company company) throws ApplicationException, BusinessException {
 		
@@ -92,14 +92,10 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			if(company.getId() == null){
 				
-				
 				company.setCreationDate(new Date());
 				company.setStatus(CompanyStatusEnum.ACTIVE);
 				
-				//vou criar um novo usuario
-				if(company.getIdUserB() == null){
-					newUser = true;
-				}
+				newUser = true;
 			}
 			else{
 				companyBase = companyDAO.retrieve(company);
@@ -148,18 +144,6 @@ public class CompanyServiceImpl implements CompanyService {
 				
 				userBService.createNewUser(userB);
 			}
-			else if(company.getIdUserB() != null){
-				
-				//o usuario ja foi criado, associa o id da companhia nele
-				UserB userB = userBService.retrieve(company.getIdUserB());
-				
-				if(userB.getInfo() == null){
-					userB.setInfo(new HashMap<>());
-				}
-				
-				userB.getInfo().put("idStore", company.getId());
-				userBService.updateUser(userB);
-			}
 				
 		} catch (BusinessException e) {
 			throw e;
@@ -169,6 +153,36 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	
+	@Override
+	public void saveCompany (Company company) throws ApplicationException, BusinessException {
+		
+		try {
+			
+			if(company.getId() == null){
+				company.setCreationDate(new Date());
+				company.setStatus(CompanyStatusEnum.ACTIVE);
+			}
+			
+			if(company.getRating() == null){
+				company.setRating(2.5);
+			}
+			
+			if(company.getBusinessHours() != null){
+				company.setBusinessHoursDesc(WorkingHourUtils.businessHourDesc(company.getBusinessHours()));
+			}
+			
+			if(company.getAddressInfo() != null){
+				new AddressUtils().geocodeAddress(company.getAddressInfo());
+			}
+			
+			new BusinessUtils<>(companyDAO).basicSave(company);
+				
+		} catch (BusinessException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new ApplicationException("Got an error saving a company", e);
+		}
+	}
 	
 
 	@Override

@@ -54,6 +54,11 @@ public class Company {
 	
 	
 	@Field
+	private String idUser;
+	
+	
+	
+	@Field
 	private String document;
 	
 	
@@ -588,5 +593,13 @@ public class Company {
 		this.idPlan = idPlan;
 	}
 
-	
+
+	public String getIdUser() {
+		return idUser;
+	}
+
+
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
 }

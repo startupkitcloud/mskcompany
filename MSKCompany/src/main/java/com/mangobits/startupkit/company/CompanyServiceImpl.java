@@ -65,7 +65,7 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	
 	@Override
-	public List<Company> list() throws ApplicationException, BusinessException {
+	public List<Company> listAll() throws ApplicationException, BusinessException {
 		
 		List<Company> list = null;
 		
@@ -75,6 +75,25 @@ public class CompanyServiceImpl implements CompanyService {
 			
 		} catch (Exception e) {
 			throw new ApplicationException("Got an error listing companies", e);
+		}
+		
+		return list;
+	}
+	
+	
+	@Override
+	public List<Company> listActives() throws ApplicationException, BusinessException {
+		
+		List<Company> list = null;
+		
+		try {
+			
+			list = companyDAO.search(new SearchBuilder()
+					.appendParam("status", CompanyStatusEnum.ACTIVE)
+					.build());
+			
+		} catch (Exception e) {
+			throw new ApplicationException("Got an error listing active companies", e);
 		}
 		
 		return list;

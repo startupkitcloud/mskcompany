@@ -76,7 +76,7 @@ public class CompanyRestService extends BaseRestService{
 		
 		try {
 			
-			List<Company> list = companyService.list();
+			List<Company> list = companyService.listAll();
 			cont.setData(list);
 			
 		} catch (Exception e) {

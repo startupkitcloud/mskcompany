@@ -14,7 +14,10 @@ import com.mangobits.startupkit.user.UserCard;
 @Local
 public interface CompanyService{
 
-	List<Company> list() throws ApplicationException, BusinessException;
+	List<Company> listAll() throws ApplicationException, BusinessException;
+	
+	
+	List<Company> listActives() throws ApplicationException, BusinessException;
 	
 	
 	void save(Company company) throws ApplicationException, BusinessException;	

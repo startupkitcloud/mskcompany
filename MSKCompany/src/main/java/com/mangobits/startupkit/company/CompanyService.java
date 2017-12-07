@@ -20,6 +20,7 @@ public interface CompanyService{
 	List<Company> listActives() throws ApplicationException, BusinessException;
 	
 	
+	@Deprecated
 	void save(Company company) throws ApplicationException, BusinessException;	
 	
 	

@@ -82,6 +82,10 @@ public class Company {
 	
 	
 	
+	private String colorImage;
+	
+	
+	
 	@Field
 	@Enumerated(EnumType.STRING)
 	private CompanyStatusEnum status;
@@ -601,5 +605,15 @@ public class Company {
 
 	public void setIdUser(String idUser) {
 		this.idUser = idUser;
+	}
+
+
+	public String getColorImage() {
+		return colorImage;
+	}
+
+
+	public void setColorImage(String colorImage) {
+		this.colorImage = colorImage;
 	}
 }

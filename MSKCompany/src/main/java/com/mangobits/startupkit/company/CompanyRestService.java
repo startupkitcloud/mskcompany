@@ -111,7 +111,7 @@ public class CompanyRestService extends BaseRestService{
 		
 		try { 
 			
-			companyService.save(company);
+			companyService.saveCompany(company);
 			cont.setData(company);
 
 		} catch (Exception e) {
@@ -375,6 +375,53 @@ public class CompanyRestService extends BaseRestService{
           
         return null;
     }
+	
+	
+	
+	@POST
+	@Path("/saveCompanyImage")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String saveCompanyImage(PhotoUpload photoUpload) throws Exception{
+		
+		String resultStr = null;
+		JsonContainer cont = new JsonContainer();
+		
+		try {
+			
+			Company company = companyService.retrieve(photoUpload.getIdObject());
+			
+			if(company == null){
+				throw new BusinessException("Company with id  '" + photoUpload.getIdObject() + "' not found to attach photo");
+			}
+			
+			//get the final size
+            int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
+            photoUpload.setFinalWidth(finalWidth);
+			
+			String path = companyService.pathFilesCompany(company.getId());
+			
+			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path);
+			company.setColorImage(mostUsedColor);
+			companyService.saveCompany(company);
+			
+			cont.setDesc("OK");
+			
+		} catch (Exception e) {
+			
+			if(!(e instanceof BusinessException)){
+				e.printStackTrace();
+			}
+			
+			cont.setSuccess(false);
+			cont.setDesc(e.getMessage());
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		resultStr = mapper.writeValueAsString(cont);
+		
+		return resultStr;
+	}
 	
 	
 	
@@ -684,4 +731,8 @@ public class CompanyRestService extends BaseRestService{
 		
 		return resultStr;
 	}
+	
+	
+	
+	
 }

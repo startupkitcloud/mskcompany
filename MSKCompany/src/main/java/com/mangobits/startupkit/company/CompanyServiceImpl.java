@@ -158,7 +158,7 @@ public class CompanyServiceImpl implements CompanyService {
 				userB.setName(company.getContact());
 				userB.setRole(userBService.retrieveRole("company"));
 				userB.setInfo(new HashMap<>());
-				userB.getInfo().put("idStore", company.getId());
+				userB.getInfo().put("idCompany", company.getId());
 				userB.setColor("#5c7bd2");
 				
 				userBService.createNewUser(userB);
@@ -506,7 +506,7 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		try {
 			
-			Company company = companyDAO.retrieve(new Company(service.getIdStore()));
+			Company company = companyDAO.retrieve(new Company(service.getIdCompany()));
 			
 			boolean update = false;
 			
@@ -546,7 +546,7 @@ public class CompanyServiceImpl implements CompanyService {
 					}
 					
 					service.getSaleOff().setIdProduct(service.getId());
-					service.getSaleOff().setIdStore(company.getId());
+					service.getSaleOff().setIdCompany(company.getId());
 					service.getSaleOff().setPriceBefore(service.getPrice());
 					service.getSaleOff().setTitle(service.getName());
 					

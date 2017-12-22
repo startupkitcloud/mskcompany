@@ -4,8 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -183,7 +185,7 @@ public class CompanyRestService extends BaseRestService{
 			
 			if(id == null || id.equals("null")){
 				UserB userB = getUserTokenSession();
-				id = userB.getInfo().get("idStore");	
+				id = userB.getInfo().get("idCompany");	
 			}
 			
 			Company company = companyService.retrieve(id);
@@ -398,12 +400,23 @@ public class CompanyRestService extends BaseRestService{
 			//get the final size
             int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
             photoUpload.setFinalWidth(finalWidth);
+            
+            GalleryItem gi = new GalleryItem();
+            gi.setId(UUID.randomUUID().toString());
+            
+            if(company.getGallery() == null){
+            	company.setGallery(new ArrayList<GalleryItem>());
+            }
 			
+            company.getGallery().add(gi);
+            
 			String path = companyService.pathFilesCompany(company.getId());
 			
-			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path);
+			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, gi.getId());
 			company.setColorImage(mostUsedColor);
 			companyService.saveCompany(company);
+			
+			
 			
 			cont.setDesc("OK");
 			
@@ -508,9 +521,9 @@ public class CompanyRestService extends BaseRestService{
 		
 		try { 
 			
-			if(service.getIdStore() == null || service.getIdStore().equals("null")){
-				String idStore = userB.getInfo().get("idStore");
-				service.setIdStore(idStore);
+			if(service.getIdCompany() == null || service.getIdCompany().equals("null")){
+				String idCompany = userB.getInfo().get("idCompany");
+				service.setIdCompany(idCompany);
 			}
 			
 			serviceService.save(service);
@@ -519,7 +532,7 @@ public class CompanyRestService extends BaseRestService{
 			
 			if(configurationService.loadByCode("PRODUCTION").getValueAsBoolean() &&  userB != null && userB.getRole().getFgAdmin() == null || !userB.getRole().getFgAdmin()){
 				
-				Company company = companyService.retrieve(service.getIdStore());
+				Company company = companyService.retrieve(service.getIdCompany());
 				
 				StringBuilder msg = new StringBuilder();
 				

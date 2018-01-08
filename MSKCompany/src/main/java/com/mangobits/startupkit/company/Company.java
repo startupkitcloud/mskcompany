@@ -182,7 +182,7 @@ public class Company {
 	
 	
 	
-	@OrderColumn(name = "seq")
+	//@OrderColumn(name = "seq")
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<GalleryItem> gallery;
 	

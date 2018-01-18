@@ -1,5 +1,12 @@
 package com.mangobits.startupkit.company;
 
+import java.util.Map;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
+
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 public class CompanyCard {
 	
 	private String id;
@@ -21,6 +28,11 @@ public class CompanyCard {
 	
 	
 	private Double distance;
+	
+	
+	@IndexedEmbedded
+	@ElementCollection(fetch=FetchType.EAGER)
+	private Map<String, String> info;
 	
 
 
@@ -91,5 +103,15 @@ public class CompanyCard {
 
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}
+
+
+	public Map<String, String> getInfo() {
+		return info;
+	}
+
+
+	public void setInfo(Map<String, String> info) {
+		this.info = info;
 	}
 }

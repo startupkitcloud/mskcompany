@@ -446,7 +446,13 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			card = new CompanyCard();
 			
-			card.setDistance((Double)companyDAO.forceGet(company, "distance"));
+			try {
+				card.setDistance((Double)companyDAO.forceGet(company, "distance"));
+			}
+			catch(Exception e){
+				//nao faz nada
+			}
+
 			card.setAddress(AddressUtils.textualAddress(company.getAddressInfo()));
 			card.setId(company.getId());
 			card.setName(company.getFantasyName());

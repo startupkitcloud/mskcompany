@@ -182,7 +182,7 @@ public class Company {
 	
 	
 	
-	@OrderColumn(name = "seq")
+	//@OrderColumn(name = "seq")
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<GalleryItem> gallery;
 	
@@ -220,6 +220,8 @@ public class Company {
 	private String idSalesMan;
 	
 	
+	@Field
+	@SortableField
 	private String idPlan;
 	
 	

@@ -18,6 +18,9 @@ public class CompanySearch {
 	private Double longitude;
 	
 	
+	private String city;
+	
+	
 	private Integer page;
 
 
@@ -81,5 +84,15 @@ public class CompanySearch {
 
 	public void setPage(Integer page) {
 		this.page = page;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 }

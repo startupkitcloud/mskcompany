@@ -597,6 +597,10 @@ public class CompanyServiceImpl implements CompanyService {
 			companyApp = new CompanyApp();
 			
 			Company company = companyDAO.retrieve(new Company(idCompany));
+
+			if(company == null){
+				throw new BusinessException("company_not_found");
+			}
 			
 			companyApp.setAddress(AddressUtils.textualAddress(company.getAddressInfo()));
 			
@@ -623,6 +627,8 @@ public class CompanyServiceImpl implements CompanyService {
 			companyApp.setServices(services);
 			
 		
+		} catch (BusinessException e){
+			throw e;
 		} catch (Exception e) {
 			throw new ApplicationException("Got an error loading a company app", e);
 		}

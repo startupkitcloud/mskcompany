@@ -77,7 +77,7 @@ public class Company {
 	private Double rating;
 	
 	
-	
+	@Field
 	private String desc;
 	
 	

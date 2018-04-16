@@ -3,7 +3,7 @@
   	<modelVersion>4.0.0</modelVersion>
     <groupId>com.mangobits.startupkit.company</groupId>
     <artifactId>MSKCompany</artifactId>
-    <version>1.0.21</version>
+    <version>1.0.22</version>
     <packaging>ejb</packaging>
  
     <name>${project.groupId}:${project.artifactId}</name>
@@ -51,10 +51,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         
         <!-- msk config versions -->
-		<msk-core-version>1.0.45</msk-core-version>
+		<msk-core-version>1.0.50</msk-core-version>
 		<msk-user-version>1.0.63</msk-user-version>
 		<msk-rs-version>1.0.2</msk-rs-version>
-		<msk-payment-version>1.0.13</msk-payment-version>
+		<msk-payment-version>1.0.18</msk-payment-version>
 		<msk-admin-version>1.0.32</msk-admin-version>
 		<msk-catalogue-version>1.0.34</msk-catalogue-version>
 		<msk-notification-version>1.0.25</msk-notification-version>
@@ -234,5 +234,13 @@
 			</plugins>
 		</pluginManagement>
   	</build>
+  	
+  	
+  	<distributionManagement>
+		<repository>
+			<id>mangobits-startupkit-repository</id>
+			<url>http://dev.mangobits.net:8081/artifactory/libs-release-local/</url>
+		</repository>
+	</distributionManagement>
   
 </project>

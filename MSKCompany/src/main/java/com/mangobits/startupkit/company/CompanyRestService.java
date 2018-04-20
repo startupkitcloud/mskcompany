@@ -9,6 +9,7 @@ import com.mangobits.startupkit.core.configuration.Configuration;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
 import com.mangobits.startupkit.core.exception.BusinessException;
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import com.mangobits.startupkit.core.photo.PhotoUpload;
 import com.mangobits.startupkit.core.photo.PhotoUtils;
 import com.mangobits.startupkit.core.utils.FileUtil;
@@ -398,7 +399,7 @@ public class CompanyRestService extends AdminBaseRestService {
             gi.setId(UUID.randomUUID().toString());
             
             if(company.getGallery() == null){
-            	company.setGallery(new ArrayList<GalleryItem>());
+            	company.setGallery(new ArrayList<>());
             }
 			
             company.getGallery().add(gi);

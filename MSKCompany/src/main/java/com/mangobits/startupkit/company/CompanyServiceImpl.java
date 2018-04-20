@@ -14,6 +14,7 @@ import javax.ejb.TransactionManagementType;
 import javax.enterprise.inject.New;
 import javax.inject.Inject;
 
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.Sort;
 import org.hibernate.search.spatial.DistanceSortField;

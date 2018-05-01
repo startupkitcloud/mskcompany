@@ -394,24 +394,33 @@ public class CompanyRestService extends AdminBaseRestService {
 			//get the final size
             int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
             photoUpload.setFinalWidth(finalWidth);
-            
-            GalleryItem gi = new GalleryItem();
-            gi.setId(UUID.randomUUID().toString());
-            
-            if(company.getGallery() == null){
-            	company.setGallery(new ArrayList<>());
-            }
-			
-            company.getGallery().add(gi);
+            String idPhoto;
+
+            //soh adiciona na galeria se nao tiver idSubObject
+            if(photoUpload.getIdSubObject() == null){
+
+            	idPhoto = UUID.randomUUID().toString();
+
+				GalleryItem gi = new GalleryItem();
+				gi.setId(idPhoto);
+
+				if(company.getGallery() == null){
+					company.setGallery(new ArrayList<>());
+				}
+
+				company.getGallery().add(gi);
+			}
+			else{
+
+            	idPhoto = photoUpload.getIdSubObject();
+			}
             
 			String path = companyService.pathFilesCompany(company.getId());
 			
-			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, gi.getId());
+			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
 			company.setColorImage(mostUsedColor);
 			companyService.saveCompany(company);
-			
-			
-			
+
 			cont.setDesc("OK");
 			
 		} catch (Exception e) {

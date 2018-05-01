@@ -160,8 +160,7 @@ public class Company {
 	private List<Category> categories;
 	
 	
-	
-	@JsonIgnore
+
 	@IndexedEmbedded
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<SaleOff> salesOff;

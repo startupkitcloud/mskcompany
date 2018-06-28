@@ -9,8 +9,5 @@
         <module name="MSKCompany" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="MSKCompany" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

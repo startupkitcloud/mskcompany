@@ -166,8 +166,7 @@ public class Company {
 	private List<SaleOff> salesOff;
 	
 	
-	
-	//@OrderColumn(name = "seq")
+
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<GalleryItem> gallery;
 	

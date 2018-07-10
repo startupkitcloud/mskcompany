@@ -18,8 +18,11 @@ public interface CompanyService{
 	
 	
 	List<Company> listActives() throws ApplicationException, BusinessException;
-	
-	
+
+
+	List<CompanyCard> listByIdParent(String idParent) throws ApplicationException, BusinessException;
+
+
 	@Deprecated
 	void save(Company company) throws ApplicationException, BusinessException;	
 	

@@ -98,6 +98,32 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return list;
 	}
+
+	@Override
+	public List<CompanyCard> listByIdParent(String idParent) throws ApplicationException, BusinessException {
+
+		List<CompanyCard> list = null;
+
+		try {
+
+			List<Company> listComps = companyDAO.search(new SearchBuilder()
+					.appendParam("idParent", idParent)
+					.build());
+
+			if(listComps != null){
+				list = new ArrayList<>();
+
+				for(Company company : listComps){
+					list.add(createCompanyCard(company));
+				}
+			}
+
+		} catch (Exception e) {
+			throw new ApplicationException("Got an error listing companies by parent", e);
+		}
+
+		return list;
+	}
 	
 	
 	@Deprecated
@@ -108,7 +134,7 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			boolean newUser = false;
 			Company companyBase = null;
-			
+
 			if(company.getId() == null){
 				
 				company.setCreationDate(new Date());
@@ -296,9 +322,9 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ApplicationException("Got an error removing a photo in a company", e);
 		}
 	}
-	
-	
-	
+
+
+
 	
 	@Override
 	public void changeStatus(String id) throws BusinessException, ApplicationException {
@@ -321,9 +347,9 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 	
-	
-	
-	
+
+
+
 	@Override
 	public void changeStatusService(String idService) throws BusinessException, ApplicationException {
 		

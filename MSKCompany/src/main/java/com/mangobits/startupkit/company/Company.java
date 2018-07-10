@@ -50,11 +50,21 @@ public class Company {
 	
 	@Field
 	private String code;
+
+
+
+	@Field
+	private String type;
 	
 	
 	
 	@Field
 	private String idUser;
+
+
+
+	@Field
+	private String idParent;
 	
 	
 	
@@ -617,5 +627,22 @@ public class Company {
 
 	public void setColorImage(String colorImage) {
 		this.colorImage = colorImage;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getIdParent() {
+		return idParent;
+	}
+
+	public void setIdParent(String idParent) {
+		this.idParent = idParent;
 	}
 }

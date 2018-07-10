@@ -98,6 +98,37 @@ public class CompanyRestService extends BaseRestService{
 		
 		return resultStr;
 	}
+
+	@GET
+	@Path("/listByIdParent/{idParent}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String listByIdParent(@PathParam("idParent") String idParent) throws Exception {
+
+		String resultStr = null;
+		JsonContainer cont = new JsonContainer();
+
+		try {
+
+			List<CompanyCard> list = companyService.listByIdParent(idParent);
+			cont.setData(list);
+
+		} catch (Exception e) {
+
+			if(!(e instanceof BusinessException)){
+				e.printStackTrace();
+			}
+
+			cont.setSuccess(false);
+			cont.setDesc(e.getMessage());
+
+			emailService.sendEmailError(e);
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		resultStr = mapper.writeValueAsString(cont);
+
+		return resultStr;
+	}
 	
 	
 	
@@ -378,9 +409,7 @@ public class CompanyRestService extends BaseRestService{
         return null;
     }
 	
-	
-	
-	@POST
+    @POST
 	@Path("/saveCompanyImage")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)

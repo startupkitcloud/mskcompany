@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler"}, ignoreUnknown=true)
 @Entity(name="company")
 @Indexed
 public class Company {

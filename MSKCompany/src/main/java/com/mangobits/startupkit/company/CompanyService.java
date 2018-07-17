@@ -67,4 +67,7 @@ public interface CompanyService{
 
 
 	void saveCompany(Company company) throws ApplicationException, BusinessException;
+
+
+	List<CompanyCard> listActiveCards() throws Exception;
 }

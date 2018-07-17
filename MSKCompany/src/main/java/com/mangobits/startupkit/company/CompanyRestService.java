@@ -101,6 +101,39 @@ public class CompanyRestService extends AdminBaseRestService {
 	}
 	
 	
+	@SecuredAdmin
+	@GET
+	@Path("/listActiveCards")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String listActiveCards() throws Exception {
+		
+		String resultStr = null;
+		JsonContainer cont = new JsonContainer();
+		
+		try {
+			
+			List<CompanyCard> list = companyService.listActiveCards();
+			cont.setData(list);
+			
+		} catch (Exception e) {
+			
+			if(!(e instanceof BusinessException)){
+				e.printStackTrace();
+			}
+			
+			cont.setSuccess(false);
+			cont.setDesc(e.getMessage());
+			
+			emailService.sendEmailError(e);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		resultStr = mapper.writeValueAsString(cont);
+		
+		return resultStr;
+	}
+	
+	
 	
 	@SecuredAdmin
 	@POST

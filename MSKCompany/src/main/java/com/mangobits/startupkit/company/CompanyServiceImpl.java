@@ -82,6 +82,36 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	
+	
+	@Override
+	public List<CompanyCard> listActiveCards() throws Exception {
+		
+		List<CompanyCard> listCompanyCard = null;
+		
+		try {
+			
+			List<Company> listComp = listActives();
+			
+			if(listComp != null){
+				
+				listCompanyCard = new ArrayList<>();
+				
+				for(Company company : listComp){
+					
+					CompanyCard card = createCompanyCard(company);
+					
+					listCompanyCard.add(card);
+				}
+			}
+			
+		} catch (Exception e) {
+			throw new ApplicationException("Got an error listActiveCards", e);
+		}
+		
+		return listCompanyCard;
+	}
+	
+	
 	@Override
 	public List<Company> listActives() throws ApplicationException, BusinessException {
 		

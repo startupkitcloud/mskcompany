@@ -426,11 +426,19 @@ public class CompanyRestService extends AdminBaseRestService {
 
 			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
-            List<InputPart> listItens =  uploadForm.get("data");
+            int count = 0;
 
-            for(int i=0; i<listItens.size(); i++){
+            while (true){
 
-                //get the object id
+				List<InputPart> listItens =  uploadForm.get("file["+count+"]");
+
+				if(listItens == null) {
+					break;
+				}
+
+				InputPart inputPartsFile = listItens.get(0);
+
+				//get the object id
                 InputPart inputPartsId = uploadForm.get("id_object").get(0);
                 String idObject = inputPartsId.getBody(String.class, null);
 
@@ -441,13 +449,16 @@ public class CompanyRestService extends AdminBaseRestService {
 				}
 
                 //get the config data to crop
-                InputPart inputPartsData = uploadForm.get("data").get(i);
-                String json = inputPartsData.getBody(String.class, null);
-                ObjectMapper mapper = new ObjectMapper();
-                PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
+//                InputPart inputPartsData = uploadForm.get("data").get(i);
+//                String json = inputPartsData.getBody(String.class, null);
+//                ObjectMapper mapper = new ObjectMapper();
+//                PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
+
+				PhotoUpload photoUpload = new PhotoUpload();
+				photoUpload.setWidth(400.0);
 
                 // Get file data to save
-                InputPart inputPartsFile = uploadForm.get("file").get(i);
+//                InputPart inputPartsFile = uploadForm.get("file").get(i);
                 InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
                 byte[] bytes = IOUtils.toByteArray(inputStream);
                 photoUpload.setPhotoBytes(bytes);

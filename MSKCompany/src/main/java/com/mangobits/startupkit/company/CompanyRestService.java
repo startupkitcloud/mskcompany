@@ -431,6 +431,7 @@ public class CompanyRestService extends AdminBaseRestService {
             while (true){
 
 				List<InputPart> listItens =  uploadForm.get("file["+count+"]");
+				count++;
 
 				if(listItens == null) {
 					break;

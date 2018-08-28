@@ -70,4 +70,6 @@ public interface CompanyService{
 
 
 	List<CompanyCard> listActiveCards() throws Exception;
+
+	List<CompanyCard> listByIdParent(String idParent) throws Exception;
 }

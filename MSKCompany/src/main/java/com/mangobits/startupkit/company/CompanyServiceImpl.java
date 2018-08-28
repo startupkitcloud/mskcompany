@@ -666,4 +666,28 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return companyApp;
 	}
+
+	@Override
+	public List<CompanyCard> listByIdParent(String idParent) throws Exception {
+
+		List<CompanyCard> list = null;
+
+
+			List<Company> listComps = companyDAO.search(new SearchBuilder()
+					.appendParam("idParent", idParent)
+					.build());
+
+			if(listComps != null){
+				list = new ArrayList<>();
+
+				for(Company company : listComps){
+					list.add(createCompanyCard(company));
+				}
+			}
+
+
+		return list;
+	}
+
+
 }

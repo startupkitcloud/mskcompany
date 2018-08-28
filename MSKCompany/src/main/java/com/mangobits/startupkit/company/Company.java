@@ -90,6 +90,11 @@ public class Company {
 
 	@Field
 	private String type;
+
+
+
+	@Field
+	private String idParent;
 	
 	
 	
@@ -614,5 +619,13 @@ public class Company {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getIdParent() {
+		return idParent;
+	}
+
+	public void setIdParent(String idParent) {
+		this.idParent = idParent;
 	}
 }

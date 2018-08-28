@@ -85,6 +85,11 @@ public class Company {
 
 	@Field
 	private String phone;
+
+
+
+	@Field
+	private String type;
 	
 	
 	
@@ -601,5 +606,13 @@ public class Company {
 
 	public void setColorImage(String colorImage) {
 		this.colorImage = colorImage;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

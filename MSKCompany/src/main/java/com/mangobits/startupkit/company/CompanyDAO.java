@@ -1,8 +1,8 @@
 package com.mangobits.startupkit.company;
 
-import com.mangobits.startupkit.core.utils.AbstractDAO;
+import com.mangobits.startupkit.core.dao.AbstractDAO;
 
-public class CompanyDAO extends AbstractDAO<Company>{
+public class CompanyDAO extends AbstractDAO<Company> {
 	
 
 	public CompanyDAO() {
@@ -11,7 +11,7 @@ public class CompanyDAO extends AbstractDAO<Company>{
 
 
 	@Override
-	protected Object getId(Company obj) {
+	public Object getId(Company obj) {
 		return obj.getId();
 	}
 }

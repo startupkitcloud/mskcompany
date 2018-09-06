@@ -1,36 +1,22 @@
 package com.mangobits.startupkit.company;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OrderColumn;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.search.annotations.DocumentId;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.SortableField;
-import org.hibernate.search.annotations.Spatial;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mangobits.startupkit.catalogue.category.Category;
 import com.mangobits.startupkit.catalogue.saleoff.SaleOff;
 import com.mangobits.startupkit.core.address.AddressInfo;
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import com.mangobits.startupkit.payment.bankaccount.BankAccount;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.search.annotations.*;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler"}, ignoreUnknown=true)
 @Entity(name="company")
 @Indexed
 public class Company {
@@ -50,21 +36,11 @@ public class Company {
 	
 	@Field
 	private String code;
-
-
-
-	@Field
-	private String type;
 	
 	
 	
 	@Field
 	private String idUser;
-
-
-
-	@Field
-	private String idParent;
 	
 	
 	
@@ -109,6 +85,16 @@ public class Company {
 
 	@Field
 	private String phone;
+
+
+
+	@Field
+	private String type;
+
+
+
+	@Field
+	private String idParent;
 	
 	
 	
@@ -184,15 +170,13 @@ public class Company {
 	private List<Category> categories;
 	
 	
-	
-	@JsonIgnore
+
 	@IndexedEmbedded
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<SaleOff> salesOff;
 	
 	
-	
-	//@OrderColumn(name = "seq")
+
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<GalleryItem> gallery;
 	
@@ -628,7 +612,6 @@ public class Company {
 	public void setColorImage(String colorImage) {
 		this.colorImage = colorImage;
 	}
-
 
 	public String getType() {
 		return type;

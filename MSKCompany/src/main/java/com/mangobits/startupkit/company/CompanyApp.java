@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mangobits.startupkit.catalogue.service.Service;
+import com.mangobits.startupkit.core.photo.GalleryItem;
 
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

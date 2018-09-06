@@ -14,6 +14,7 @@ import javax.ejb.TransactionManagementType;
 import javax.enterprise.inject.New;
 import javax.inject.Inject;
 
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.Sort;
 import org.hibernate.search.spatial.DistanceSortField;
@@ -81,6 +82,36 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	
+	
+	@Override
+	public List<CompanyCard> listActiveCards() throws Exception {
+		
+		List<CompanyCard> listCompanyCard = null;
+		
+		try {
+			
+			List<Company> listComp = listActives();
+			
+			if(listComp != null){
+				
+				listCompanyCard = new ArrayList<>();
+				
+				for(Company company : listComp){
+					
+					CompanyCard card = createCompanyCard(company);
+					
+					listCompanyCard.add(card);
+				}
+			}
+			
+		} catch (Exception e) {
+			throw new ApplicationException("Got an error listActiveCards", e);
+		}
+		
+		return listCompanyCard;
+	}
+	
+	
 	@Override
 	public List<Company> listActives() throws ApplicationException, BusinessException {
 		
@@ -98,32 +129,6 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return list;
 	}
-
-	@Override
-	public List<CompanyCard> listByIdParent(String idParent) throws ApplicationException, BusinessException {
-
-		List<CompanyCard> list = null;
-
-		try {
-
-			List<Company> listComps = companyDAO.search(new SearchBuilder()
-					.appendParam("idParent", idParent)
-					.build());
-
-			if(listComps != null){
-				list = new ArrayList<>();
-
-				for(Company company : listComps){
-					list.add(createCompanyCard(company));
-				}
-			}
-
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error listing companies by parent", e);
-		}
-
-		return list;
-	}
 	
 	
 	@Deprecated
@@ -134,7 +139,7 @@ public class CompanyServiceImpl implements CompanyService {
 			
 			boolean newUser = false;
 			Company companyBase = null;
-
+			
 			if(company.getId() == null){
 				
 				company.setCreationDate(new Date());
@@ -322,9 +327,9 @@ public class CompanyServiceImpl implements CompanyService {
 			throw new ApplicationException("Got an error removing a photo in a company", e);
 		}
 	}
-
-
-
+	
+	
+	
 	
 	@Override
 	public void changeStatus(String id) throws BusinessException, ApplicationException {
@@ -347,9 +352,9 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 	
-
-
-
+	
+	
+	
 	@Override
 	public void changeStatusService(String idService) throws BusinessException, ApplicationException {
 		
@@ -483,6 +488,7 @@ public class CompanyServiceImpl implements CompanyService {
 			card.setId(company.getId());
 			card.setName(company.getFantasyName());
 			card.setRating(company.getRating());
+			card.setAddressInfo(company.getAddressInfo());
 			
 			
 		} catch (Exception e) {
@@ -661,4 +667,28 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return companyApp;
 	}
+
+	@Override
+	public List<CompanyCard> listByIdParent(String idParent) throws Exception {
+
+		List<CompanyCard> list = null;
+
+
+			List<Company> listComps = companyDAO.search(new SearchBuilder()
+					.appendParam("idParent", idParent)
+					.build());
+
+			if(listComps != null){
+				list = new ArrayList<>();
+
+				for(Company company : listComps){
+					list.add(createCompanyCard(company));
+				}
+			}
+
+
+		return list;
+	}
+
+
 }

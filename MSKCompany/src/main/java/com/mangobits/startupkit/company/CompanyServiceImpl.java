@@ -14,6 +14,7 @@ import javax.ejb.TransactionManagementType;
 import javax.enterprise.inject.New;
 import javax.inject.Inject;
 
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.Sort;
 import org.hibernate.search.spatial.DistanceSortField;
@@ -78,6 +79,36 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 		
 		return list;
+	}
+	
+	
+	
+	@Override
+	public List<CompanyCard> listActiveCards() throws Exception {
+		
+		List<CompanyCard> listCompanyCard = null;
+		
+		try {
+			
+			List<Company> listComp = listActives();
+			
+			if(listComp != null){
+				
+				listCompanyCard = new ArrayList<>();
+				
+				for(Company company : listComp){
+					
+					CompanyCard card = createCompanyCard(company);
+					
+					listCompanyCard.add(card);
+				}
+			}
+			
+		} catch (Exception e) {
+			throw new ApplicationException("Got an error listActiveCards", e);
+		}
+		
+		return listCompanyCard;
 	}
 	
 	
@@ -483,6 +514,7 @@ public class CompanyServiceImpl implements CompanyService {
 			card.setId(company.getId());
 			card.setName(company.getFantasyName());
 			card.setRating(company.getRating());
+			card.setAddressInfo(company.getAddressInfo());
 			
 			
 		} catch (Exception e) {
@@ -661,4 +693,28 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return companyApp;
 	}
+
+	@Override
+	public List<CompanyCard> listByIdParent(String idParent) throws Exception {
+
+		List<CompanyCard> list = null;
+
+
+			List<Company> listComps = companyDAO.search(new SearchBuilder()
+					.appendParam("idParent", idParent)
+					.build());
+
+			if(listComps != null){
+				list = new ArrayList<>();
+
+				for(Company company : listComps){
+					list.add(createCompanyCard(company));
+				}
+			}
+
+
+		return list;
+	}
+
+
 }

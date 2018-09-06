@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
 
+import com.mangobits.startupkit.core.exception.ApplicationException;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -33,11 +34,12 @@ import com.mangobits.startupkit.core.configuration.Configuration;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
 import com.mangobits.startupkit.core.exception.BusinessException;
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import com.mangobits.startupkit.core.photo.PhotoUpload;
 import com.mangobits.startupkit.core.photo.PhotoUtils;
 import com.mangobits.startupkit.core.utils.FileUtil;
 import com.mangobits.startupkit.notification.email.EmailService;
-import com.mangobits.startupkit.service.admin.util.BaseRestService;
+import com.mangobits.startupkit.service.admin.util.AdminBaseRestService;
 import com.mangobits.startupkit.service.admin.util.SecuredAdmin;
 import com.mangobits.startupkit.user.UserCard;
 import com.mangobits.startupkit.ws.JsonContainer;
@@ -45,7 +47,7 @@ import com.mangobits.startupkit.ws.JsonContainer;
 
 @Stateless
 @Path("/company")
-public class CompanyRestService extends BaseRestService{
+public class CompanyRestService extends AdminBaseRestService {
 	
 	
 	@EJB
@@ -127,6 +129,39 @@ public class CompanyRestService extends BaseRestService{
 		ObjectMapper mapper = new ObjectMapper();
 		resultStr = mapper.writeValueAsString(cont);
 
+		return resultStr;
+	}
+	
+	
+	@SecuredAdmin
+	@GET
+	@Path("/listActiveCards")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String listActiveCards() throws Exception {
+		
+		String resultStr = null;
+		JsonContainer cont = new JsonContainer();
+		
+		try {
+			
+			List<CompanyCard> list = companyService.listActiveCards();
+			cont.setData(list);
+			
+		} catch (Exception e) {
+			
+			if(!(e instanceof BusinessException)){
+				e.printStackTrace();
+			}
+			
+			cont.setSuccess(false);
+			cont.setDesc(e.getMessage());
+			
+			emailService.sendEmailError(e);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		resultStr = mapper.writeValueAsString(cont);
+		
 		return resultStr;
 	}
 	
@@ -359,55 +394,7 @@ public class CompanyRestService extends BaseRestService{
 			}
 		};
 	}
-	
-	
-	@POST
-    @Path("/uploadCompanyImage")
-    @Consumes("multipart/form-data")
-    public String uploadCompanyImage(MultipartFormDataInput input) throws IOException {
-          
-        try {
-        	
-        	Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-            
-            //get the object id
-            InputPart inputPartsId = uploadForm.get("photo_id").get(0);
-            String photoId = inputPartsId.getBody(String.class, null);
-            
-            InputPart inputPartsIdItem = uploadForm.get("item_id").get(0);
-            String itemId = inputPartsIdItem.getBody(String.class, null);
-            
-            //get the config data to crop
-            InputPart inputPartsData = uploadForm.get("avatar_data").get(0);
-            String json = inputPartsData.getBody(String.class, null);
-            ObjectMapper mapper = new ObjectMapper();
-            PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
-     
-            // Get file data to save
-            InputPart inputPartsFile = uploadForm.get("avatar_file").get(0);
-            InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
-            byte[] bytes = IOUtils.toByteArray(inputStream);
-            photoUpload.setPhotoBytes(bytes);
-            
-            //get the final size
-            int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
-            photoUpload.setFinalWidth(finalWidth);
-            
-            String path = companyService.pathFilesCompany(photoId);
-            
-            new PhotoUtils().saveImage(photoUpload, path, itemId);
-            
-            companyService.addPhoto(photoId, itemId);
-            
-            return "{\"state\": 200}";
-			
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-          
-        return null;
-    }
+
 	
     @POST
 	@Path("/saveCompanyImage")
@@ -429,24 +416,16 @@ public class CompanyRestService extends BaseRestService{
 			//get the final size
             int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
             photoUpload.setFinalWidth(finalWidth);
-            
-            GalleryItem gi = new GalleryItem();
-            gi.setId(UUID.randomUUID().toString());
-            
-            if(company.getGallery() == null){
-            	company.setGallery(new ArrayList<GalleryItem>());
-            }
-			
-            company.getGallery().add(gi);
-            
+
+            //soh adiciona na galeria se nao tiver idSubObject
+			String idPhoto = getImageId(company, photoUpload);
+
 			String path = companyService.pathFilesCompany(company.getId());
 			
-			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, gi.getId());
+			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
 			company.setColorImage(mostUsedColor);
 			companyService.saveCompany(company);
-			
-			
-			
+
 			cont.setDesc("OK");
 			
 		} catch (Exception e) {
@@ -464,9 +443,168 @@ public class CompanyRestService extends BaseRestService{
 		
 		return resultStr;
 	}
-	
-	
-	
+
+
+
+	@POST
+	@Path("/uploadCompanyImage")
+	@Consumes("multipart/form-data")
+	public String uploadCompanyImage(MultipartFormDataInput input) throws Exception {
+
+
+		try {
+
+			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+
+            int count = 0;
+
+            while (true){
+
+				List<InputPart> listFiles =  uploadForm.get("file["+count+"]");
+				count++;
+
+				if(listFiles == null) {
+					return "{\n\"success\": \"false\"\n\"desc\": \"Missing file[0]\"\n}";
+				}
+				InputPart inputPartsFile = listFiles.get(0);
+
+				//get the object id
+				List<InputPart> inputId =  uploadForm.get("id_object");
+
+				if(inputId == null) {
+					return "{\n\"success\": \"false\"\n\"desc\": \"Missing id_object\"\n}";
+				}
+
+				InputPart inputPartsId = inputId.get(0);
+                String idObject = inputPartsId.getBody(String.class, null);
+
+				Company company = companyService.retrieve(idObject);
+
+				if(company == null){
+					return "{\n\"success\": \"false\"\n\"desc\": \"Company with id  '\" + idObject + \"' not found to attach photo\"\n}";
+				}
+
+                //get the config data to crop
+//                InputPart inputPartsData = uploadForm.get("data").get(i);
+//                String json = inputPartsData.getBody(String.class, null);
+//                ObjectMapper mapper = new ObjectMapper();
+//                PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
+
+				PhotoUpload photoUpload = new PhotoUpload();
+				photoUpload.setWidth(400.0);
+
+                // Get file data to save
+//                InputPart inputPartsFile = uploadForm.get("file").get(i);
+                InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
+                byte[] bytes = IOUtils.toByteArray(inputStream);
+                photoUpload.setPhotoBytes(bytes);
+
+
+				//get the final size
+				int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
+				photoUpload.setFinalWidth(finalWidth);
+				String idPhoto;
+
+				//soh adiciona na galeria se nao tiver idSubObject
+				idPhoto = getImageId(company, photoUpload);
+
+				String path = companyService.pathFilesCompany(company.getId());
+
+				String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
+
+				company.setColorImage(mostUsedColor);
+				companyService.saveCompany(company);
+
+				return "{\"success\": \"true\"}";
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// para projetos antigos como o BlocodePedidos
+	@POST
+	@Path("/uploadStoreImage")
+	@Consumes("multipart/form-data")
+	public String uploadStoreImage(MultipartFormDataInput input) throws IOException {
+
+		try {
+
+			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+
+			System.out.println();
+
+			//get the object id
+			InputPart inputPartsId = uploadForm.get("photo_id").get(0);
+			String photoId = inputPartsId.getBody(String.class, null);
+
+			//get the config data to crop
+			InputPart inputPartsData = uploadForm.get("avatar_data").get(0);
+			String json = inputPartsData.getBody(String.class, null);
+			ObjectMapper mapper = new ObjectMapper();
+			PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
+
+			// Get file data to save
+			InputPart inputPartsFile = uploadForm.get("avatar_file").get(0);
+			InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
+			byte[] bytes = IOUtils.toByteArray(inputStream);
+			photoUpload.setPhotoBytes(bytes);
+
+			String path = pathFilesStore(photoId,uploadForm.get("avatar-type").get(0).getBody(String.class, null));
+
+			new PhotoUtils().saveImage(photoUpload, path);
+
+			return "{\"state\": 200}";
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// para projetos antigos
+	public String pathFilesStore(String idCompany, String type) throws BusinessException, ApplicationException {
+
+		try {
+
+			return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany + "/" + type;
+
+		} catch (Exception e) {
+			throw new ApplicationException("got an error geting the store path file", e);
+		}
+	}
+
+
+
+	private String getImageId(Company company, PhotoUpload photoUpload) {
+		String idPhoto;
+		if(photoUpload.getIdSubObject() == null){
+
+			idPhoto = UUID.randomUUID().toString();
+
+			GalleryItem gi = new GalleryItem();
+			gi.setId(idPhoto);
+
+			if(company.getGallery() == null){
+				company.setGallery(new ArrayList<>());
+			}
+
+			company.getGallery().add(gi);
+		}
+		else{
+
+			idPhoto = photoUpload.getIdSubObject();
+		}
+		return idPhoto;
+	}
+
+
 	@GET
 	@Path("/removePhoto/{idCompany}/{idPhoto}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -773,8 +911,39 @@ public class CompanyRestService extends BaseRestService{
 		
 		return resultStr;
 	}
-	
-	
-	
-	
+
+	@GET
+	@Path("/listByIdParent/{idParent}")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	public String listByIdParent(@PathParam("idParent") String idParent) throws Exception {
+
+		String resultStr = null;
+		JsonContainer cont = new JsonContainer();
+
+		try {
+
+			List<CompanyCard> list = companyService.listByIdParent(idParent);
+			cont.setData(list);
+
+		} catch (Exception e) {
+
+			if(!(e instanceof BusinessException)){
+				e.printStackTrace();
+			}
+
+			cont.setSuccess(false);
+			cont.setDesc(e.getMessage());
+
+			emailService.sendEmailError(e);
+		}
+
+		ObjectMapper mapper = new ObjectMapper();
+		resultStr = mapper.writeValueAsString(cont);
+
+		return resultStr;
+	}
+
+
+
+
 }

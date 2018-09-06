@@ -5,7 +5,10 @@ import java.util.Map;
 import javax.persistence.ElementCollection;
 import javax.persistence.FetchType;
 
+import com.mangobits.startupkit.core.address.AddressInfo;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.SortableField;
+import org.hibernate.search.annotations.Spatial;
 
 public class CompanyCard {
 	
@@ -28,6 +31,12 @@ public class CompanyCard {
 	
 	
 	private Double distance;
+
+
+	@SortableField
+	@Spatial
+	@IndexedEmbedded
+	private AddressInfo addressInfo;
 	
 	
 	@IndexedEmbedded
@@ -113,5 +122,14 @@ public class CompanyCard {
 
 	public void setInfo(Map<String, String> info) {
 		this.info = info;
+	}
+
+
+	public AddressInfo getAddressInfo() {
+		return addressInfo;
+	}
+
+	public void setAddressInfo(AddressInfo addressInfo) {
+		this.addressInfo = addressInfo;
 	}
 }

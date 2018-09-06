@@ -20,6 +20,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
 
+import com.mangobits.startupkit.core.exception.ApplicationException;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -424,138 +425,69 @@ public class CompanyRestService extends AdminBaseRestService {
 
 		try {
 
-//			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-//
-//            int count = 0;
-//
-//            while (true){
-//
-//				List<InputPart> listFiles =  uploadForm.get("file["+count+"]");
-//				count++;
-//
-//				if(listFiles == null) {
-//					return "{\n\"success\": \"false\"\n\"desc\": \"Missing file[0]\"\n}";
-//				}
-//				InputPart inputPartsFile = listFiles.get(0);
-//
-//				//get the object id
-//				List<InputPart> inputId =  uploadForm.get("id_object");
-//
-//				if(inputId == null) {
-//					return "{\n\"success\": \"false\"\n\"desc\": \"Missing id_object\"\n}";
-//				}
-//
-//				InputPart inputPartsId = inputId.get(0);
-//                String idObject = inputPartsId.getBody(String.class, null);
-//
-//				Company company = companyService.retrieve(idObject);
-//
-//				if(company == null){
-//					return "{\n\"success\": \"false\"\n\"desc\": \"Company with id  '\" + idObject + \"' not found to attach photo\"\n}";
-//				}
-//
-//                //get the config data to crop
-////                InputPart inputPartsData = uploadForm.get("data").get(i);
-////                String json = inputPartsData.getBody(String.class, null);
-////                ObjectMapper mapper = new ObjectMapper();
-////                PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
-//
-//				PhotoUpload photoUpload = new PhotoUpload();
-//				photoUpload.setWidth(400.0);
-//
-//                // Get file data to save
-////                InputPart inputPartsFile = uploadForm.get("file").get(i);
-//                InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
-//                byte[] bytes = IOUtils.toByteArray(inputStream);
-//                photoUpload.setPhotoBytes(bytes);
-//
-//
-//				//get the final size
-//				int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
-//				photoUpload.setFinalWidth(finalWidth);
-//				String idPhoto;
-//
-//				//soh adiciona na galeria se nao tiver idSubObject
-//				idPhoto = getImageId(company, photoUpload);
-//
-//				String path = companyService.pathFilesCompany(company.getId());
-//
-//				String mostUsedColor;
-//
-//				//get the imageType, ex: logo or cover
-//
-//				List<InputPart> inputImageType = uploadForm.get("imageType");
-//
-//				if (inputImageType != null){
-//					InputPart partsId = inputImageType.get(0);
-//					if (partsId != null){
-//						String imageType = partsId.getBody(String.class, null);
-//						mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, imageType);
-//					}else {
-//						mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
-//					}
-//				}else {
-//					mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
-//
-//				}
-//
-//				company.setColorImage(mostUsedColor);
-//				companyService.saveCompany(company);
-//
-//				return "{\"success\": \"true\"}";
-//			}
-
 			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
-			System.out.println();
+            int count = 0;
 
-			if (uploadForm.get("id_object") == null){
-				return "{\n\"success\": \"false\"\n\"desc\": \"Missing id_object\"\n}";
+            while (true){
 
+				List<InputPart> listFiles =  uploadForm.get("file["+count+"]");
+				count++;
+
+				if(listFiles == null) {
+					return "{\n\"success\": \"false\"\n\"desc\": \"Missing file[0]\"\n}";
+				}
+				InputPart inputPartsFile = listFiles.get(0);
+
+				//get the object id
+				List<InputPart> inputId =  uploadForm.get("id_object");
+
+				if(inputId == null) {
+					return "{\n\"success\": \"false\"\n\"desc\": \"Missing id_object\"\n}";
+				}
+
+				InputPart inputPartsId = inputId.get(0);
+                String idObject = inputPartsId.getBody(String.class, null);
+
+				Company company = companyService.retrieve(idObject);
+
+				if(company == null){
+					return "{\n\"success\": \"false\"\n\"desc\": \"Company with id  '\" + idObject + \"' not found to attach photo\"\n}";
+				}
+
+                //get the config data to crop
+//                InputPart inputPartsData = uploadForm.get("data").get(i);
+//                String json = inputPartsData.getBody(String.class, null);
+//                ObjectMapper mapper = new ObjectMapper();
+//                PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
+
+				PhotoUpload photoUpload = new PhotoUpload();
+				photoUpload.setWidth(400.0);
+
+                // Get file data to save
+//                InputPart inputPartsFile = uploadForm.get("file").get(i);
+                InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
+                byte[] bytes = IOUtils.toByteArray(inputStream);
+                photoUpload.setPhotoBytes(bytes);
+
+
+				//get the final size
+				int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
+				photoUpload.setFinalWidth(finalWidth);
+				String idPhoto;
+
+				//soh adiciona na galeria se nao tiver idSubObject
+				idPhoto = getImageId(company, photoUpload);
+
+				String path = companyService.pathFilesCompany(company.getId());
+
+				String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
+
+				company.setColorImage(mostUsedColor);
+				companyService.saveCompany(company);
+
+				return "{\"success\": \"true\"}";
 			}
-			if (uploadForm.get("file[0]") == null){
-				return "{\n\"success\": \"false\"\n\"desc\": \"Missing file[0]\"\n}";
-
-			}
-			if (uploadForm.get("avatar_data") == null){
-				return "{\n\"success\": \"false\"\n\"desc\": \"Missing avatar_data\"\n}";
-
-			}
-			if (uploadForm.get("imageType") == null){
-				return "{\n\"success\": \"false\"\n\"desc\": \"Missing imageType\"\n}";
-			}
-
-
-			//get the object id
-			InputPart inputPartsId = uploadForm.get("id_object").get(0);
-			String idObject = inputPartsId.getBody(String.class, null);
-
-			//get the config data to crop
-			InputPart inputPartsData = uploadForm.get("avatar_data").get(0);
-			String json = inputPartsData.getBody(String.class, null);
-			ObjectMapper mapper = new ObjectMapper();
-			PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
-
-			// Get file data to save
-			InputPart inputPartsFile = uploadForm.get("file[0]").get(0);
-			InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
-			byte[] bytes = IOUtils.toByteArray(inputStream);
-			photoUpload.setPhotoBytes(bytes);
-
-			//get the imageType, ex: logo or cover
-			List<InputPart> inputImageType = uploadForm.get("imageType");
-			InputPart partsId = inputImageType.get(0);
-			String imageType = partsId.getBody(String.class, null);
-
-
-			String path = companyService.pathFilesCompany(idObject);
-
-			new PhotoUtils().saveImage(photoUpload, path, imageType);
-
-			return "{\"success\": \"true\"}";
-
-
-
 
 		} catch (Exception e) {
 
@@ -564,6 +496,62 @@ public class CompanyRestService extends AdminBaseRestService {
 
 		return null;
 	}
+
+	// para projetos antigos como o BlocodePedidos
+	@POST
+	@Path("/uploadStoreImage")
+	@Consumes("multipart/form-data")
+	public String uploadStoreImage(MultipartFormDataInput input) throws IOException {
+
+		try {
+
+			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+
+			System.out.println();
+
+			//get the object id
+			InputPart inputPartsId = uploadForm.get("photo_id").get(0);
+			String photoId = inputPartsId.getBody(String.class, null);
+
+			//get the config data to crop
+			InputPart inputPartsData = uploadForm.get("avatar_data").get(0);
+			String json = inputPartsData.getBody(String.class, null);
+			ObjectMapper mapper = new ObjectMapper();
+			PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
+
+			// Get file data to save
+			InputPart inputPartsFile = uploadForm.get("avatar_file").get(0);
+			InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
+			byte[] bytes = IOUtils.toByteArray(inputStream);
+			photoUpload.setPhotoBytes(bytes);
+
+			String path = pathFilesStore(photoId,uploadForm.get("avatar-type").get(0).getBody(String.class, null));
+
+			new PhotoUtils().saveImage(photoUpload, path);
+
+			return "{\"state\": 200}";
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// para projetos antigos
+	public String pathFilesStore(String idCompany, String type) throws BusinessException, ApplicationException {
+
+		try {
+
+			return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany + "/" + type;
+
+		} catch (Exception e) {
+			throw new ApplicationException("got an error geting the store path file", e);
+		}
+	}
+
+
 
 	private String getImageId(Company company, PhotoUpload photoUpload) {
 		String idPhoto;

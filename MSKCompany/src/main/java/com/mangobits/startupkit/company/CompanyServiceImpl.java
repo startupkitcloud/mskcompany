@@ -488,6 +488,7 @@ public class CompanyServiceImpl implements CompanyService {
 			card.setId(company.getId());
 			card.setName(company.getFantasyName());
 			card.setRating(company.getRating());
+			card.setAddressInfo(company.getAddressInfo());
 			
 			
 		} catch (Exception e) {

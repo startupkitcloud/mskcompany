@@ -14,59 +14,59 @@ import com.mangobits.startupkit.user.UserCard;
 @Local
 public interface CompanyService{
 
-	List<Company> listAll() throws ApplicationException, BusinessException;
+	List<Company> listAll() throws Exception;
 	
 	
-	List<Company> listActives() throws ApplicationException, BusinessException;
+	List<Company> listActives() throws Exception;
 	
 	
 	@Deprecated
-	void save(Company company) throws ApplicationException, BusinessException;	
+	void save(Company company) throws Exception;
 	
 	
-	Company retrieve(String id) throws ApplicationException, BusinessException;
+	Company retrieve(String id) throws Exception;
 	
 	
-	Company retrieveByCode(String code) throws BusinessException, ApplicationException;
+	Company retrieveByCode(String code) throws Exception;
 	
 	
-	String pathFilesCompany(String idCompany) throws BusinessException, ApplicationException;
+	String pathFilesCompany(String idCompany) throws Exception;
 	
 	
-	void addPhoto(String idCompany, String idPhoto) throws BusinessException, ApplicationException;
+	void addPhoto(String idCompany, String idPhoto) throws Exception;
 	
 	
-	void removePhoto(String idCompany, String idPhoto) throws BusinessException, ApplicationException;
+	void removePhoto(String idCompany, String idPhoto) throws Exception;
 	
 	
-	void changeStatus(String idCompany) throws BusinessException, ApplicationException;
+	void changeStatus(String idCompany) throws Exception;
 	
 	
-	void changeStatusService(String idService) throws BusinessException, ApplicationException;
+	void changeStatusService(String idService) throws Exception;
 	
 	
-	List<CompanyCard> search(CompanySearch companySearch) throws BusinessException, ApplicationException;
+	List<CompanyCard> search(CompanySearch companySearch) throws Exception;
 	
 	
-	List<SaleOff> mainSalesOff(CompanySearch companySearch) throws BusinessException, ApplicationException;
+	List<SaleOff> mainSalesOff(CompanySearch companySearch) throws Exception;
 	
 	
-	CompanyCard createCompanyCard(Company company) throws BusinessException, ApplicationException;
+	CompanyCard createCompanyCard(Company company) throws Exception;
 	
 	
-	CompanyCard createCompanyCard(String idCompany) throws BusinessException, ApplicationException;
+	CompanyCard createCompanyCard(String idCompany) throws Exception;
 	
 	
-	List<UserCard> listPros(String idService) throws BusinessException, ApplicationException;
+	List<UserCard> listPros(String idService) throws Exception;
 	
 	
-	void processService(Service service) throws BusinessException, ApplicationException;
+	void processService(Service service) throws Exception;
 	
 	
-	CompanyApp load(String idCompany) throws BusinessException, ApplicationException;
+	CompanyApp load(String idCompany) throws Exception;
 
 
-	void saveCompany(Company company) throws ApplicationException, BusinessException;
+	void saveCompany(Company company) throws Exception;
 
 
 	List<CompanyCard> listActiveCards() throws Exception;

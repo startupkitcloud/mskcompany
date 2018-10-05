@@ -45,16 +45,17 @@ public class Company {
 	
 	
 	@Field
-	private String document;
+	private String document;//cnpj
 	
 	
 	
 	@Field
 	private String documentType;
-	
-	
-	
+
+
+
 	@Field
+	@SortableField
 	private String fantasyName;
 	
 	

@@ -16,7 +16,9 @@ import javax.inject.Inject;
 
 import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.auth.BasicUserPrincipal;
 import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.hibernate.search.spatial.DistanceSortField;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -66,17 +68,13 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	
 	@Override
-	public List<Company> listAll() throws ApplicationException, BusinessException {
+	public List<Company> listAll() throws Exception {
 		
 		List<Company> list = null;
 		
-		try {
-			
+
 			list = companyDAO.listAll();
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error listing companies", e);
-		}
+
 		
 		return list;
 	}
@@ -88,8 +86,7 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		List<CompanyCard> listCompanyCard = null;
 		
-		try {
-			
+
 			List<Company> listComp = listActives();
 			
 			if(listComp != null){
@@ -104,28 +101,22 @@ public class CompanyServiceImpl implements CompanyService {
 				}
 			}
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error listActiveCards", e);
-		}
+
 		
 		return listCompanyCard;
 	}
 	
 	
 	@Override
-	public List<Company> listActives() throws ApplicationException, BusinessException {
+	public List<Company> listActives() throws Exception {
 		
 		List<Company> list = null;
 		
-		try {
-			
+
 			list = companyDAO.search(new SearchBuilder()
 					.appendParam("status", CompanyStatusEnum.ACTIVE)
 					.build());
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error listing active companies", e);
-		}
+
 		
 		return list;
 	}
@@ -133,10 +124,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Deprecated
 	@Override
-	public void save(Company company) throws ApplicationException, BusinessException {
+	public void save(Company company) throws Exception {
 		
-		try {
-			
+
 			boolean newUser = false;
 			Company companyBase = null;
 			
@@ -194,21 +184,35 @@ public class CompanyServiceImpl implements CompanyService {
 				
 				userBService.createNewUser(userB);
 			}
-				
-		} catch (BusinessException e) {
-			throw e;
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error saving a company", e);
-		}
+
+
 	}
 	
 	
 	@Override
-	public void saveCompany (Company company) throws ApplicationException, BusinessException {
-		
-		try {
-			
+	public void saveCompany (Company company) throws Exception {
+
+		if (company.getDocument() != null){
+
+			if (company.getId() == null){
+				SearchBuilder builder = new SearchBuilder();
+				builder.appendParam("document", company.getDocument());
+				List<Company> listComp = companyDAO.search(builder.build());
+				if (listComp != null && listComp.size() > 0){
+					throw new BusinessException("document_already_used");
+				}
+			}else {
+				Company companyBase = retrieve(company.getId());
+				if (companyBase.getDocument() != null && !companyBase.getDocument().equals(company.getDocument())){
+					throw new BusinessException("document_cannot_be_changed");
+				}
+
+			}
+
+		}
+
 			if(company.getId() == null){
+
 				company.setCreationDate(new Date());
 				company.setStatus(CompanyStatusEnum.ACTIVE);
 			}
@@ -226,27 +230,19 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 			
 			new BusinessUtils<>(companyDAO).basicSave(company);
-				
-		} catch (BusinessException e) {
-			throw e;
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error saving a company", e);
-		}
+
 	}
 	
 
 	@Override
-	public Company retrieve(String id) throws ApplicationException, BusinessException {
+	public Company retrieve(String id) throws Exception {
 		
 		Company company = null;
 		
-		try {
-			
+
 			company = companyDAO.retrieve(new Company(id));
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error retrieving a company", e);
-		}
+
 
 		return company;
 	}
@@ -254,20 +250,17 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	
 	@Override
-	public Company retrieveByCode(String code) throws BusinessException, ApplicationException {
+	public Company retrieveByCode(String code) throws Exception {
 		
 		Company company = null;
 		
-		try {
-			
+
 			Map<String, Object> params = new HashMap<>();
 			params.put("code", code);
 			
 			company = companyDAO.retrieve(params);
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error retrieving a company by code", e);
-		}
+
 		
 		return company;
 	}
@@ -275,24 +268,19 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	
 	@Override
-	public String pathFilesCompany(String idCompany) throws BusinessException, ApplicationException {
+	public String pathFilesCompany(String idCompany) throws Exception {
 		
-		try {
-			
+
 			return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany;  
-				
-		} catch (Exception e) {
-			throw new ApplicationException("got an error geting the company path file", e);
-		}
+
 	}
 
 
 
 	@Override
-	public void addPhoto(String idCompany, String idPhoto) throws BusinessException, ApplicationException {
+	public void addPhoto(String idCompany, String idPhoto) throws Exception {
 		
-		try {
-			
+
 			Company company = companyDAO.retrieve(new Company(idCompany));
 			
 			if(company.getGallery() == null){
@@ -302,19 +290,15 @@ public class CompanyServiceImpl implements CompanyService {
 			company.getGallery().add(new GalleryItem(idPhoto));
 			
 			companyDAO.update(company);
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error adding a photo in a company", e);
-		}
+
 	}
 
 
 
 	@Override
-	public void removePhoto(String idCompany, String idPhoto) throws BusinessException, ApplicationException {
+	public void removePhoto(String idCompany, String idPhoto) throws Exception {
 		
-		try {
-			
+
 			Company company = companyDAO.retrieve(new Company(idCompany));
 			
 			if(company.getGallery() != null){
@@ -322,20 +306,16 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 			
 			companyDAO.update(company);
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error removing a photo in a company", e);
-		}
+
 	}
 	
 	
 	
 	
 	@Override
-	public void changeStatus(String id) throws BusinessException, ApplicationException {
+	public void changeStatus(String id) throws Exception {
 		
-		try {
-		
+
 			Company company = retrieve(id);
 			
 			if(company.getStatus() != null && company.getStatus().equals(CompanyStatusEnum.ACTIVE)){
@@ -346,39 +326,32 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 			
 			companyDAO.update(company);
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error changing the company status", e);
-		}
+
 	}
 	
 	
 	
 	
 	@Override
-	public void changeStatusService(String idService) throws BusinessException, ApplicationException {
+	public void changeStatusService(String idService) throws Exception {
 		
-		try {
-			
+
 			serviceService.changeStatus(idService);
 			Service service = serviceService.load(idService);
 			
 			processService(service);
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error changing the company status", e);
-		}
+
 	}
 
 
 
 	@Override
-	public List<CompanyCard> search(CompanySearch search) throws BusinessException, ApplicationException {
+	public List<CompanyCard> search(CompanySearch search) throws Exception{
 		
 		List<CompanyCard> list = null;
 		
-		try {
-			
+
 			SearchBuilder builder = new SearchBuilder();
 			builder.appendParam("status", CompanyStatusEnum.ACTIVE);
 			
@@ -421,10 +394,8 @@ public class CompanyServiceImpl implements CompanyService {
 					list.add(card);
 				}
 			}
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error executing a search", e);
-		}
+
+
 		
 		return list;
 	}
@@ -432,12 +403,11 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	
 	@Override
-	public List<SaleOff> mainSalesOff(CompanySearch search) throws BusinessException, ApplicationException {
+	public List<SaleOff> mainSalesOff(CompanySearch search) throws Exception {
 		
 		List<SaleOff> list = null;
 		
-		try {
-			
+
 			SearchBuilder builder = new SearchBuilder();
 			
 			builder.appendParam("gt:salesOff.priceBefore", 0.0);
@@ -458,10 +428,8 @@ public class CompanyServiceImpl implements CompanyService {
 					.collect(Collectors.toList());
 			
 //			Collections.shuffle(list);
-			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error loading the main sales off", e);
-		}
+
+
 		
 		return list;
 	}
@@ -469,12 +437,11 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 	@Override
-	public CompanyCard createCompanyCard(Company company) throws BusinessException, ApplicationException {
+	public CompanyCard createCompanyCard(Company company) throws Exception {
 		
 		CompanyCard card = null;
 		
-		try {
-			
+
 			card = new CompanyCard();
 			
 			try {
@@ -491,9 +458,7 @@ public class CompanyServiceImpl implements CompanyService {
 			card.setAddressInfo(company.getAddressInfo());
 			
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error creating a company card", e);
-		}
+
 		
 		return card;
 	}
@@ -501,18 +466,15 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 	@Override
-	public CompanyCard createCompanyCard(String idCompany) throws BusinessException, ApplicationException {
+	public CompanyCard createCompanyCard(String idCompany) throws Exception {
 		
 		CompanyCard card = null;
 		
-		try {
-			
+
 			Company company = companyDAO.retrieve(new Company(idCompany));
 			card = createCompanyCard(company);
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error creating a company card", e);
-		}
+
 		
 		return card;
 	}
@@ -520,19 +482,16 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 	@Override
-	public List<UserCard> listPros(String idService) throws BusinessException, ApplicationException {
+	public List<UserCard> listPros(String idService) throws Exception {
 		
 		List<UserCard> list = null;
 		
-		try {
-			
+
 			Service service = serviceService.load(idService);
 			
 			list = service.getWorkers();
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error listing prefessional users of a company", e);
-		}
+
 		
 		return list;
 	}
@@ -540,10 +499,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 
 	@Override
-	public void processService(Service service) throws BusinessException, ApplicationException {
+	public void processService(Service service) throws Exception {
 		
-		try {
-			
+
 			Company company = companyDAO.retrieve(new Company(service.getIdCompany()));
 			
 			boolean update = false;
@@ -612,20 +570,16 @@ public class CompanyServiceImpl implements CompanyService {
 				companyDAO.update(company);
 			}
 			
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error listing prefessional users of a company", e);
-		}
 	}
 
 
 
 	@Override
-	public CompanyApp load(String idCompany) throws BusinessException, ApplicationException {
+	public CompanyApp load(String idCompany) throws Exception {
 		
 		CompanyApp companyApp = null;
 		
-		try {
-			
+
 			companyApp = new CompanyApp();
 			
 			Company company = companyDAO.retrieve(new Company(idCompany));
@@ -658,13 +612,7 @@ public class CompanyServiceImpl implements CompanyService {
 			List<Service> services = serviceService.listAllStoreServices(idCompany, true);
 			companyApp.setServices(services);
 			
-		
-		} catch (BusinessException e){
-			throw e;
-		} catch (Exception e) {
-			throw new ApplicationException("Got an error loading a company app", e);
-		}
-		
+
 		return companyApp;
 	}
 
@@ -673,10 +621,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 		List<CompanyCard> list = null;
 
+		SearchBuilder builder = new SearchBuilder();
+		builder.appendParam("idParent", idParent);
 
-			List<Company> listComps = companyDAO.search(new SearchBuilder()
-					.appendParam("idParent", idParent)
-					.build());
+		Sort sort = new Sort(new SortField("fantasyName", SortField.Type.DOC, true));
+		builder.setSort(sort);
+
+			List<Company> listComps = companyDAO.search(builder.build());
 
 			if(listComps != null){
 				list = new ArrayList<>();

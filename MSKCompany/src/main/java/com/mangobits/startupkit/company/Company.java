@@ -81,6 +81,12 @@ public class Company {
 	@JsonIgnore
 	@Field
 	private Boolean fgFeatured;
+
+
+
+	@JsonIgnore
+	@Field
+	private Boolean fgBranch;
 	
 	
 
@@ -628,5 +634,14 @@ public class Company {
 
 	public void setIdParent(String idParent) {
 		this.idParent = idParent;
+	}
+
+
+	public Boolean getFgBranch() {
+		return fgBranch;
+	}
+
+	public void setFgBranch(Boolean fgBranch) {
+		this.fgBranch = fgBranch;
 	}
 }

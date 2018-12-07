@@ -381,7 +381,7 @@ public class CompanyRestService extends AdminBaseRestService {
 			Company company = companyService.retrieve(photoUpload.getIdObject());
 			
 			if(company == null){
-				throw new BusinessException("Company with id  '" + photoUpload.getIdObject() + "' not found to attach photo");
+				throw new BusinessException("company with id  '" + photoUpload.getIdObject() + "' not found to attach photo");
 			}
 			
 			//get the final size
@@ -452,7 +452,7 @@ public class CompanyRestService extends AdminBaseRestService {
 				Company company = companyService.retrieve(idObject);
 
 				if(company == null){
-					return "{\n\"success\": \"false\"\n\"desc\": \"Company with id  '\" + idObject + \"' not found to attach photo\"\n}";
+					return "{\n\"success\": \"false\"\n\"desc\": \"company with id  '\" + idObject + \"' not found to attach photo\"\n}";
 				}
 
                 //get the config data to crop

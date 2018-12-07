@@ -97,7 +97,7 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.6" level="project" />
     <orderEntry type="library" name="Maven: com.mangobits.startupkit.catalogue:MSKCatalogue:1.1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.mangobits.startupkit.admin:MSKAdmin:1.1.1" level="project" />
+    <orderEntry type="module" module-name="MSKAdmin" />
     <orderEntry type="library" name="Maven: com.mangobits.startupkit.authkey:MSKAuthKey:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.mangobits.startupkit.notification:MSKNotification:1.1.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.android.gcm:gcm-server:1.0.2" level="project" />

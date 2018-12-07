@@ -84,9 +84,11 @@ public class Company {
 
 
 
-	@JsonIgnore
 	@Field
 	private Boolean fgBranch;
+
+
+	private String branchName;
 	
 	
 
@@ -643,5 +645,14 @@ public class Company {
 
 	public void setFgBranch(Boolean fgBranch) {
 		this.fgBranch = fgBranch;
+	}
+
+
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
 	}
 }

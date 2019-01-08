@@ -264,6 +264,20 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		return company;
 	}
+
+
+	@Override
+	public Company loadByField(String field, String value) throws Exception {
+
+		Company company = null;
+
+			Map<String, Object> params = new HashMap<>();
+			params.put(field, value);
+
+			company = companyDAO.retrieve(params);
+
+		return company;
+	}
 	
 	
 	

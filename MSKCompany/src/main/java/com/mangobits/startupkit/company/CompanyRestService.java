@@ -1,9 +1,6 @@
 package com.mangobits.startupkit.company;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -298,7 +295,13 @@ public class CompanyRestService extends AdminBaseRestService {
 					String base = configuration.getValue();
 					
 					String path = base + "/company/" + idCompany + "/" + imageType + "_main.jpg";
-					
+
+					File file = new File(path);
+					if (!file.exists()) {
+						path = base + "/company/default/placeholder.jpg";
+					}
+
+
 					ByteArrayInputStream in =  new ByteArrayInputStream(FileUtil.readFile(path));
 							
 					byte[] buf = new byte[16384]; 
@@ -343,6 +346,11 @@ public class CompanyRestService extends AdminBaseRestService {
 						String base = configuration.getValue();
 						
 						String path = base + "/company/" + idCompany + "/" + company.getGallery().get(0).getId() + "_main.jpg";
+
+						File file = new File(path);
+						if (!file.exists()) {
+							path = base + "/company/default/placeholder.jpg";
+						}
 						
 						ByteArrayInputStream in =  new ByteArrayInputStream(FileUtil.readFile(path));
 								

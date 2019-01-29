@@ -24,6 +24,11 @@ public class CompanySearch {
 	private Integer page;
 
 
+
+	private Integer pageItensNumber;
+
+
+
 	public String getQueryString() {
 		return queryString;
 	}
@@ -94,5 +99,13 @@ public class CompanySearch {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Integer getPageItensNumber() {
+		return pageItensNumber;
+	}
+
+	public void setPageItensNumber(Integer pageItensNumber) {
+		this.pageItensNumber = pageItensNumber;
 	}
 }

@@ -17,6 +17,8 @@ import javax.inject.Inject;
 import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.auth.BasicUserPrincipal;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
 import org.hibernate.search.spatial.DistanceSortField;
@@ -654,6 +656,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 		return list;
 	}
+
+//
 
 
 }

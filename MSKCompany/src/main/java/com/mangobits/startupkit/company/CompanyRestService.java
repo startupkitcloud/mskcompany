@@ -298,7 +298,12 @@ public class CompanyRestService extends AdminBaseRestService {
 
 					File file = new File(path);
 					if (!file.exists()) {
-						path = base + "/company/default/placeholder.jpg";
+						path = configuration.getValue() + "/company/default/placeholder_" + imageType + ".jpg";
+
+						File placeholder = new File(path);
+						if (!placeholder.exists()) {
+							path = configuration.getValue() + "/company/default/placeholder.jpg";
+						}
 					}
 
 

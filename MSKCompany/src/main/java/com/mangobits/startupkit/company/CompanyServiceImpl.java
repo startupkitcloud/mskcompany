@@ -385,6 +385,10 @@ public class CompanyServiceImpl implements CompanyService {
 		    	builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
 		    	builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
 			}
+//			else {
+//				Sort sort = new Sort(new SortField("fantasyName", SortField.Type.DOC, true));
+//				builder.setSort(sort);
+//			}
 			
 			builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
 			
@@ -399,7 +403,7 @@ public class CompanyServiceImpl implements CompanyService {
 				for(Company company : listComp){
 					CompanyCard card = createCompanyCard(company);
 					
-					Service service = serviceService.fisrtFeaturedServiceByCategory(company.getId(), search.getIdCategory());
+					Service service = serviceService.firstFeaturedServiceByCategory(company.getId(), search.getIdCategory());
 					
 					if(service != null){
 						

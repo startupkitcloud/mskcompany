@@ -1,28 +1,5 @@
 package com.mangobits.startupkit.company;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.enterprise.inject.New;
-import javax.inject.Inject;
-
-import com.mangobits.startupkit.core.photo.GalleryItem;
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.auth.BasicUserPrincipal;
-import org.apache.lucene.search.BooleanClause;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
-import org.hibernate.search.spatial.DistanceSortField;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangobits.startupkit.admin.user.UserB;
 import com.mangobits.startupkit.admin.user.UserBService;
@@ -34,12 +11,26 @@ import com.mangobits.startupkit.catalogue.status.ItemStatusEnum;
 import com.mangobits.startupkit.core.address.AddressUtils;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
+import com.mangobits.startupkit.core.dao.OperationEnum;
 import com.mangobits.startupkit.core.dao.SearchBuilder;
 import com.mangobits.startupkit.core.dao.SearchProjection;
-import com.mangobits.startupkit.core.exception.ApplicationException;
 import com.mangobits.startupkit.core.exception.BusinessException;
+import com.mangobits.startupkit.core.photo.GalleryItem;
 import com.mangobits.startupkit.core.utils.BusinessUtils;
 import com.mangobits.startupkit.user.UserCard;
+import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
+import org.hibernate.search.spatial.DistanceSortField;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.enterprise.inject.New;
+import javax.inject.Inject;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -366,29 +357,26 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<CompanyCard> search(CompanySearch search) throws Exception{
 		
 		List<CompanyCard> list = null;
-		
 
-			SearchBuilder builder = new SearchBuilder();
-			builder.appendParam("status", CompanyStatusEnum.ACTIVE);
+			SearchBuilder builder = companyDAO.createBuilder();
+			builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
 			
 			if(search.getIdCategory() != null){
-				builder.appendParam("categories.id", search.getIdCategory());
+				builder.appendParamQuery("categories.id", search.getIdCategory());
 			}
-			
-			
+
 			if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
-				builder.appendParam("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|categories.name", search.getQueryString());
+				builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|categories.name", search.getQueryString(), OperationEnum.OR_FIELDS);
 			}
-			
-			
+
+			if(search.getIdCompanyIn() != null && !search.getIdCompanyIn().isEmpty()){
+				builder.appendParamQuery("id", search.getIdCompanyIn(), OperationEnum.IN);
+			}
+
 			if(search.getLatitude() != null){ 
 		    	builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
 		    	builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
 			}
-//			else {
-//				Sort sort = new Sort(new SortField("fantasyName", SortField.Type.DOC, true));
-//				builder.setSort(sort);
-//			}
 			
 			builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
 			
@@ -477,8 +465,9 @@ public class CompanyServiceImpl implements CompanyService {
 			card.setRating(company.getRating());
 			card.setAddressInfo(company.getAddressInfo());
 			
-			
-
+			if(company.getInfo() != null){
+				card.setInfo(company.getInfo());
+			}
 		
 		return card;
 	}

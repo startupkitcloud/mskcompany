@@ -632,8 +632,10 @@ public class CompanyServiceImpl implements CompanyService {
 
 		SearchBuilder builder = new SearchBuilder();
 		builder.appendParam("idParent", idParent);
+		builder.appendParam("status", CompanyStatusEnum.ACTIVE);
 
-		Sort sort = new Sort(new SortField("fantasyName", SortField.Type.DOC, true));
+
+		Sort sort = new Sort(new SortField("fantasyName", SortField.Type.STRING, true));
 		builder.setSort(sort);
 
 			List<Company> listComps = companyDAO.search(builder.build());

@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
 
 import com.mangobits.startupkit.core.exception.ApplicationException;
+import com.mangobits.startupkit.user.util.SecuredUser;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -623,8 +624,6 @@ public class CompanyRestService extends AdminBaseRestService {
 	
 	
 	
-	
-	@SecuredAdmin
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -656,9 +655,8 @@ public class CompanyRestService extends AdminBaseRestService {
 		
 		return resultStr;
 	}
-	
-	
-	
+
+
 	
 	@SecuredAdmin
 	@POST

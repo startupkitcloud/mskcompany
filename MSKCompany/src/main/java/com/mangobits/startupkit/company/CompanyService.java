@@ -1,14 +1,9 @@
 package com.mangobits.startupkit.company;
 
-import java.util.List;
+import com.mangobits.startupkit.user.UserCard;
 
 import javax.ejb.Local;
-
-import com.mangobits.startupkit.catalogue.saleoff.SaleOff;
-import com.mangobits.startupkit.catalogue.service.Service;
-import com.mangobits.startupkit.core.exception.ApplicationException;
-import com.mangobits.startupkit.core.exception.BusinessException;
-import com.mangobits.startupkit.user.UserCard;
+import java.util.List;
 
 
 @Local
@@ -42,13 +37,13 @@ public interface CompanyService{
 	void changeStatus(String idCompany) throws Exception;
 	
 	
-	void changeStatusService(String idService) throws Exception;
+//	void changeStatusService(String idService) throws Exception;
 	
 	
 	List<CompanyCard> search(CompanySearch companySearch) throws Exception;
 	
 	
-	List<SaleOff> mainSalesOff(CompanySearch companySearch) throws Exception;
+//	List<SaleOff> mainSalesOff(CompanySearch companySearch) throws Exception;
 	
 	
 	CompanyCard createCompanyCard(Company company) throws Exception;
@@ -57,10 +52,10 @@ public interface CompanyService{
 	CompanyCard createCompanyCard(String idCompany) throws Exception;
 	
 	
-	List<UserCard> listPros(String idService) throws Exception;
+//	List<UserCard> listPros(String idService) throws Exception;
 	
 	
-	void processService(Service service) throws Exception;
+//	void processService(Service service) throws Exception;
 	
 	
 	CompanyApp load(String idCompany) throws Exception;

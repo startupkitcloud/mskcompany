@@ -1,10 +1,9 @@
 package com.mangobits.startupkit.company;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mangobits.startupkit.catalogue.service.Service;
 import com.mangobits.startupkit.core.photo.GalleryItem;
+
+import java.util.List;
 
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -44,11 +43,11 @@ public class CompanyApp {
 	
 	
 	
-	private List<Service> featuredServices;
-	
-	
-	
-	private List<Service> services;
+//	private List<Service> featuredServices;
+//
+//
+//
+//	private List<Service> services;
 	
 	
 	
@@ -156,27 +155,27 @@ public class CompanyApp {
 
 
 
-	public List<Service> getFeaturedServices() {
-		return featuredServices;
-	}
-
-
-
-	public void setFeaturedServices(List<Service> featuredServices) {
-		this.featuredServices = featuredServices;
-	}
-
-
-
-	public List<Service> getServices() {
-		return services;
-	}
-
-
-
-	public void setServices(List<Service> services) {
-		this.services = services;
-	}
+//	public List<Service> getFeaturedServices() {
+//		return featuredServices;
+//	}
+//
+//
+//
+//	public void setFeaturedServices(List<Service> featuredServices) {
+//		this.featuredServices = featuredServices;
+//	}
+//
+//
+//
+//	public List<Service> getServices() {
+//		return services;
+//	}
+//
+//
+//
+//	public void setServices(List<Service> services) {
+//		this.services = services;
+//	}
 
 
 

@@ -2,11 +2,8 @@ package com.mangobits.startupkit.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mangobits.startupkit.catalogue.category.Category;
-import com.mangobits.startupkit.catalogue.saleoff.SaleOff;
 import com.mangobits.startupkit.core.address.AddressInfo;
 import com.mangobits.startupkit.core.photo.GalleryItem;
-import com.mangobits.startupkit.payment.bankaccount.BankAccount;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.*;
 
@@ -124,8 +121,8 @@ public class Company {
 	
 	
 	
-	@IndexedEmbedded
-	private BankAccount bankAccount;
+//	@IndexedEmbedded
+//	private BankAccount bankAccount;
 	
 	
 	
@@ -157,6 +154,9 @@ public class Company {
 	
 	@Transient
 	private String categoriesDesc;
+
+
+	private String category;
 	
 	
 	
@@ -174,15 +174,15 @@ public class Company {
 	
 	
 	
-	@IndexedEmbedded(includeEmbeddedObjectId=true)
-	@ElementCollection(fetch=FetchType.EAGER)
-	private List<Category> categories;
-	
-	
-
-	@IndexedEmbedded
-	@ElementCollection(fetch=FetchType.EAGER)
-	private List<SaleOff> salesOff;
+//	@IndexedEmbedded(includeEmbeddedObjectId=true)
+//	@ElementCollection(fetch=FetchType.EAGER)
+//	private List<Category> categories;
+//
+//
+//
+//	@IndexedEmbedded
+//	@ElementCollection(fetch=FetchType.EAGER)
+//	private List<SaleOff> salesOff;
 	
 	
 
@@ -370,24 +370,24 @@ public class Company {
 
 
 
-	public List<Category> getCategories() {
-		return categories;
-	}
-
-
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
-
-
-	public List<SaleOff> getSalesOff() {
-		return salesOff;
-	}
-
-
-	public void setSalesOff(List<SaleOff> salesOff) {
-		this.salesOff = salesOff;
-	}
+//	public List<Category> getCategories() {
+//		return categories;
+//	}
+//
+//
+//	public void setCategories(List<Category> categories) {
+//		this.categories = categories;
+//	}
+//
+//
+//	public List<SaleOff> getSalesOff() {
+//		return salesOff;
+//	}
+//
+//
+//	public void setSalesOff(List<SaleOff> salesOff) {
+//		this.salesOff = salesOff;
+//	}
 
 
 	public Date getCreationDate() {
@@ -520,14 +520,14 @@ public class Company {
 	}
 
 
-	public BankAccount getBankAccount() {
-		return bankAccount;
-	}
-
-
-	public void setBankAccount(BankAccount bankAccount) {
-		this.bankAccount = bankAccount;
-	}
+//	public BankAccount getBankAccount() {
+//		return bankAccount;
+//	}
+//
+//
+//	public void setBankAccount(BankAccount bankAccount) {
+//		this.bankAccount = bankAccount;
+//	}
 
 
 	public String getDocumentType() {
@@ -654,5 +654,13 @@ public class Company {
 
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

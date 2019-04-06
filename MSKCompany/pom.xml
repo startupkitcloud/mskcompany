@@ -3,7 +3,7 @@
   	<modelVersion>4.0.0</modelVersion>
     <groupId>com.mangobits.startupkit.company</groupId>
     <artifactId>MSKCompany</artifactId>
-    <version>1.1.31</version>
+    <version>1.1.33</version>
     <packaging>ejb</packaging>
  
     <name>${project.groupId}:${project.artifactId}</name>
@@ -51,12 +51,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         
         <!-- msk config versions -->
-		<msk-core-version>1.1.10</msk-core-version>
-		<msk-user-version>1.1.36</msk-user-version>
+		<msk-core-version>1.1.15</msk-core-version>
+		<msk-user-version>1.1.48</msk-user-version>
 		<msk-rs-version>1.1.0</msk-rs-version>
-		<msk-payment-version>1.1.21</msk-payment-version>
-		<msk-admin-version>1.1.6</msk-admin-version>
-		<msk-catalogue-version>1.1.37</msk-catalogue-version>
+		<msk-admin-version>1.1.10</msk-admin-version>
 		<msk-notification-version>1.1.6</msk-notification-version>
     </properties> 
     
@@ -166,29 +164,13 @@
     		<artifactId>MSKRs</artifactId> 
     		<version>${msk-rs-version}</version>
 		</dependency>
-		
-		
-		<dependency>
-    		<groupId>com.mangobits.startupkit.payment</groupId>
-    		<artifactId>MSKPayment</artifactId>
-    		<version>${msk-payment-version}</version>
-		</dependency>
-		
-		
-		<dependency>
-    		<groupId>com.mangobits.startupkit.catalogue</groupId>
-    		<artifactId>MSKCatalogue</artifactId>
-    		<version>${msk-catalogue-version}</version>
-		</dependency>
 
-		
 		<dependency>
     		<groupId>com.mangobits.startupkit.admin</groupId>
     		<artifactId>MSKAdmin</artifactId>
     		<version>${msk-admin-version}</version>
 		</dependency>
 
-		
 		<dependency>
     		<groupId>com.mangobits.startupkit.notification</groupId>
     		<artifactId>MSKNotification</artifactId>

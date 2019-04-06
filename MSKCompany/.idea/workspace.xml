@@ -26,7 +26,6 @@
     <list default="true" id="8503ed97-c1ff-463f-b4aa-c9866c0caa02" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,145 +33,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CompanyRestService.java" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyRestService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7344">
-              <caret line="474" column="48" lean-forward="false" selection-start-line="474" selection-start-column="48" selection-end-line="474" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PhotoUpload.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/core/MSKCore/1.1.1/MSKCore-1.1.1.jar!/com/mangobits/startupkit/core/photo/PhotoUpload.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="261">
+              <caret line="824" column="73" lean-forward="true" selection-start-line="824" selection-start-column="73" selection-end-line="824" selection-end-column="73" />
               <folding>
-                <marker date="1535401743246" expanded="false" signature="0:104" ph="/.../" />
-                <marker date="1535401743246" expanded="false" signature="159:566" ph="..." />
-                <marker date="1535401743246" expanded="true" signature="568:638" ph="@{...}" />
-                <marker date="1535401743246" expanded="true" signature="1074:1099" ph="@{...}" />
-                <marker date="1535401743246" expanded="true" signature="1349:1356" ph="{}" />
-                <marker date="1535401743246" expanded="false" signature="1389:1400" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1421:1427" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1473:1484" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1509:1515" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1545:1556" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1574:1580" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1620:1631" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1650:1656" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1686:1697" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1715:1721" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1761:1772" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1791:1797" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1827:1838" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1856:1862" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1902:1913" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1932:1938" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="1966:1977" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="1993:1999" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2035:2046" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2061:2067" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2102:2113" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2136:2142" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2192:2203" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2232:2238" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2264:2275" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2289:2295" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2327:2338" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2349:2355" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2381:2392" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2406:2412" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2444:2455" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2466:2472" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2502:2513" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2531:2537" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2577:2588" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2607:2613" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2644:2655" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2674:2680" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2722:2733" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2754:2760" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2792:2803" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2822:2828" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2871:2882" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2903:2909" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="2945:2956" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="2979:2985" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3036:3047" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3076:3082" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3109:3120" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3135:3141" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3175:3186" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3199:3205" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3236:3247" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3265:3271" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3312:3323" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3342:3348" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3390:3401" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3418:3424" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3475:3486" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3503:3509" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3555:3566" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3585:3591" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="3648:3659" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="3680:3686" ph=" }" />
-                <marker date="1535401743246" expanded="true" signature="3714:3966" ph="{...}" />
-                <marker date="1535401743246" expanded="true" signature="4006:4793" ph="{...}" />
-                <marker date="1535401743246" expanded="false" signature="4826:4837" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="4857:4863" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="4908:4919" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="4942:4948" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="4984:4995" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="5019:5025" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="5077:5088" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="5119:5125" ph=" }" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="94">
+              <caret line="36" column="37" lean-forward="true" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-              <folding />
+            <state relative-caret-position="75">
+              <caret line="5" column="29" lean-forward="true" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Company.java" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="40" column="4" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/Company.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="620" column="5" lean-forward="false" selection-start-line="620" selection-start-column="5" selection-end-line="620" selection-end-column="5" />
+            <state relative-caret-position="168">
+              <caret line="163" column="20" lean-forward="true" selection-start-line="163" selection-start-column="20" selection-end-line="163" selection-end-column="20" />
               <folding>
-                <element signature="e#9084#9085#0" expanded="true" />
-                <element signature="e#9106#9107#0" expanded="true" />
-                <element signature="e#9152#9153#0" expanded="true" />
-                <element signature="e#9183#9184#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GalleryItem.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/core/MSKCore/1.1.1/MSKCore-1.1.1.jar!/com/mangobits/startupkit/core/photo/GalleryItem.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <marker date="1535401743246" expanded="false" signature="0:104" ph="/.../" />
-                <marker date="1535401743246" expanded="true" signature="278:285" ph="{}" />
-                <marker date="1535401743246" expanded="false" signature="320:331" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="344:350" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="377:388" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="403:409" ph=" }" />
-                <marker date="1535401743246" expanded="false" signature="443:454" ph=" { " />
-                <marker date="1535401743246" expanded="false" signature="467:473" ph=" }" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -185,27 +100,20 @@
       <find>c</find>
       <find>faster</find>
       <find>Gal</find>
+      <find>AppicationException</find>
     </findStrings>
-  </component>
-  <component name="GradleLocalSettings">
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyRestService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/Company.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyRestService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyApp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/Company.java" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -216,30 +124,18 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="159" />
-    <option name="y" value="65" />
-    <option name="width" value="1440" />
-    <option name="height" value="811" />
+    <option name="x" value="20" />
+    <option name="y" value="115" />
+    <option name="width" value="1172" />
+    <option name="height" value="918" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -251,6 +147,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -274,56 +171,29 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="Applet" factoryName="Applet">
+    <configuration default="true" type="Applet">
+      <option name="HEIGHT" value="0" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <option name="WIDTH" value="0" />
-      <option name="HEIGHT" value="0" />
-      <module />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MSKCompany - clean package deploy" type="MavenRunConfiguration" factoryName="Maven">
+    <configuration name="MSKCompany" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
         <option name="myRunnerSettings" />
@@ -339,6 +209,7 @@
                 <option value="deploy" />
               </list>
             </option>
+            <option name="pomFileName" />
             <option name="profilesMap">
               <map />
             </option>
@@ -347,46 +218,27 @@
           </MavenRunnerParameters>
         </option>
       </MavenSettings>
+      <method v="2" />
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
+    <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
       <properties />
       <listeners />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -403,336 +255,126 @@
       <workItem from="1543849031194" duration="1015000" />
       <workItem from="1543938155848" duration="17000" />
       <workItem from="1544035076237" duration="620000" />
+      <workItem from="1554578640609" duration="262000" />
+      <workItem from="1554581811192" duration="382000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1838000" />
+    <option name="totallyTimeSpent" value="2482000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="811" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921347" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2383863" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="EJB" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2446352" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="EJB" order="2" side_tool="true" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="UI Designer" order="6" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5243394" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TeamCity" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32911393" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.49367088" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Bean Validation" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="CDI" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info anchor="right" id="JSF" order="8" />
+      <window_info anchor="right" id="Maven" order="9" />
+      <window_info anchor="right" id="Palette" order="10" />
+      <window_info anchor="right" id="Capture Analysis" order="11" />
+      <window_info anchor="right" id="Theme Preview" order="12" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyRestService.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/admin/MSKAdmin/1.1.6/MSKAdmin-1.1.6.jar!/com/mangobits/startupkit/admin/user/UserBServiceImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7344">
-          <caret line="474" column="48" lean-forward="false" selection-start-line="474" selection-start-column="48" selection-end-line="474" selection-end-column="48" />
-          <folding />
+        <state relative-caret-position="186">
+          <caret line="382" column="17" selection-start-line="382" selection-start-column="17" selection-end-line="382" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/core/MSKCore/1.1.1/MSKCore-1.1.1.jar!/com/mangobits/startupkit/core/photo/PhotoUpload.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <marker date="1535401743246" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1535401743246" expanded="false" signature="159:566" ph="..." />
-            <marker date="1535401743246" expanded="true" signature="568:638" ph="@{...}" />
-            <marker date="1535401743246" expanded="true" signature="1074:1099" ph="@{...}" />
-            <marker date="1535401743246" expanded="true" signature="1349:1356" ph="{}" />
-            <marker date="1535401743246" expanded="false" signature="1389:1400" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1421:1427" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1473:1484" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1509:1515" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1545:1556" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1574:1580" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1620:1631" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1650:1656" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1686:1697" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1715:1721" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1761:1772" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1791:1797" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1827:1838" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1856:1862" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1902:1913" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1932:1938" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1966:1977" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1993:1999" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2035:2046" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2061:2067" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2102:2113" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2136:2142" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2192:2203" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2232:2238" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2264:2275" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2289:2295" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2327:2338" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2349:2355" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2381:2392" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2406:2412" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2444:2455" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2466:2472" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2502:2513" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2531:2537" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2577:2588" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2607:2613" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2644:2655" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2674:2680" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2722:2733" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2754:2760" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2792:2803" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2822:2828" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2871:2882" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2903:2909" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2945:2956" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2979:2985" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3036:3047" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3076:3082" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3109:3120" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3135:3141" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3175:3186" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3199:3205" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3236:3247" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3265:3271" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3312:3323" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3342:3348" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3390:3401" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3418:3424" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3475:3486" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3503:3509" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3555:3566" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3585:3591" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3648:3659" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3680:3686" ph=" }" />
-            <marker date="1535401743246" expanded="true" signature="3714:3966" ph="{...}" />
-            <marker date="1535401743246" expanded="true" signature="4006:4793" ph="{...}" />
-            <marker date="1535401743246" expanded="false" signature="4826:4837" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="4857:4863" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="4908:4919" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="4942:4948" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="4984:4995" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="5019:5025" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="5077:5088" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="5119:5125" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3655">
-          <caret line="215" column="35" lean-forward="false" selection-start-line="215" selection-start-column="35" selection-end-line="215" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="210">
+          <caret line="25" column="24" selection-start-line="25" selection-end-line="26" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/core/MSKCore/1.1.1/MSKCore-1.1.1.jar!/com/mangobits/startupkit/core/photo/GalleryItem.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <marker date="1535401743246" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1535401743246" expanded="true" signature="278:285" ph="{}" />
-            <marker date="1535401743246" expanded="false" signature="320:331" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="344:350" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="377:388" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="403:409" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="443:454" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="467:473" ph=" }" />
-          </folding>
+        <state relative-caret-position="285">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/Company.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7769">
-          <caret line="620" column="5" lean-forward="true" selection-start-line="620" selection-start-column="5" selection-end-line="620" selection-end-column="5" />
-          <folding>
-            <element signature="e#9084#9085#0" expanded="true" />
-            <element signature="e#9106#9107#0" expanded="true" />
-            <element signature="e#9152#9153#0" expanded="true" />
-            <element signature="e#9183#9184#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="29" lean-forward="true" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="472" column="8" lean-forward="false" selection-start-line="472" selection-start-column="8" selection-end-line="472" selection-end-column="8" />
+        <state relative-caret-position="90">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="40" column="4" lean-forward="true" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyRestService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7344">
-          <caret line="474" column="48" lean-forward="false" selection-start-line="474" selection-start-column="48" selection-end-line="474" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/core/MSKCore/1.1.1/MSKCore-1.1.1.jar!/com/mangobits/startupkit/core/photo/PhotoUpload.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="24" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="261">
+          <caret line="824" column="73" lean-forward="true" selection-start-line="824" selection-start-column="73" selection-end-line="824" selection-end-column="73" />
           <folding>
-            <marker date="1535401743246" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1535401743246" expanded="false" signature="159:566" ph="..." />
-            <marker date="1535401743246" expanded="true" signature="568:638" ph="@{...}" />
-            <marker date="1535401743246" expanded="true" signature="1074:1099" ph="@{...}" />
-            <marker date="1535401743246" expanded="true" signature="1349:1356" ph="{}" />
-            <marker date="1535401743246" expanded="false" signature="1389:1400" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1421:1427" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1473:1484" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1509:1515" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1545:1556" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1574:1580" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1620:1631" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1650:1656" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1686:1697" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1715:1721" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1761:1772" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1791:1797" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1827:1838" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1856:1862" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1902:1913" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1932:1938" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="1966:1977" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="1993:1999" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2035:2046" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2061:2067" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2102:2113" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2136:2142" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2192:2203" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2232:2238" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2264:2275" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2289:2295" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2327:2338" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2349:2355" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2381:2392" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2406:2412" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2444:2455" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2466:2472" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2502:2513" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2531:2537" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2577:2588" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2607:2613" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2644:2655" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2674:2680" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2722:2733" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2754:2760" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2792:2803" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2822:2828" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2871:2882" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2903:2909" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="2945:2956" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="2979:2985" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3036:3047" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3076:3082" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3109:3120" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3135:3141" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3175:3186" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3199:3205" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3236:3247" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3265:3271" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3312:3323" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3342:3348" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3390:3401" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3418:3424" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3475:3486" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3503:3509" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3555:3566" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3585:3591" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="3648:3659" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="3680:3686" ph=" }" />
-            <marker date="1535401743246" expanded="true" signature="3714:3966" ph="{...}" />
-            <marker date="1535401743246" expanded="true" signature="4006:4793" ph="{...}" />
-            <marker date="1535401743246" expanded="false" signature="4826:4837" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="4857:4863" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="4908:4919" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="4942:4948" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="4984:4995" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="5019:5025" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="5077:5088" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="5119:5125" ph=" }" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/mangobits/startupkit/core/MSKCore/1.1.1/MSKCore-1.1.1.jar!/com/mangobits/startupkit/core/photo/GalleryItem.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/CompanyApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <marker date="1535401743246" expanded="false" signature="0:104" ph="/.../" />
-            <marker date="1535401743246" expanded="true" signature="278:285" ph="{}" />
-            <marker date="1535401743246" expanded="false" signature="320:331" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="344:350" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="377:388" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="403:409" ph=" }" />
-            <marker date="1535401743246" expanded="false" signature="443:454" ph=" { " />
-            <marker date="1535401743246" expanded="false" signature="467:473" ph=" }" />
-          </folding>
+        <state relative-caret-position="94">
+          <caret line="36" column="37" lean-forward="true" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mangobits/startupkit/company/Company.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="620" column="5" lean-forward="false" selection-start-line="620" selection-start-column="5" selection-end-line="620" selection-end-column="5" />
+        <state relative-caret-position="168">
+          <caret line="163" column="20" lean-forward="true" selection-start-line="163" selection-start-column="20" selection-end-line="163" selection-end-column="20" />
           <folding>
-            <element signature="e#9084#9085#0" expanded="true" />
-            <element signature="e#9106#9107#0" expanded="true" />
-            <element signature="e#9152#9153#0" expanded="true" />
-            <element signature="e#9183#9184#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>

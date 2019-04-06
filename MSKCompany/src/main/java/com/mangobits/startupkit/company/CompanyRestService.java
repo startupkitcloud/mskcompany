@@ -1,33 +1,7 @@
 package com.mangobits.startupkit.company;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.StreamingOutput;
-
-import com.mangobits.startupkit.core.exception.ApplicationException;
-import com.mangobits.startupkit.user.util.SecuredUser;
-import org.apache.commons.io.IOUtils;
-import org.jboss.resteasy.plugins.providers.multipart.InputPart;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangobits.startupkit.admin.user.UserB;
-import com.mangobits.startupkit.catalogue.saleoff.SaleOff;
-import com.mangobits.startupkit.catalogue.service.Service;
-import com.mangobits.startupkit.catalogue.service.ServiceService;
 import com.mangobits.startupkit.core.configuration.Configuration;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
@@ -41,6 +15,20 @@ import com.mangobits.startupkit.service.admin.util.AdminBaseRestService;
 import com.mangobits.startupkit.service.admin.util.SecuredAdmin;
 import com.mangobits.startupkit.user.UserCard;
 import com.mangobits.startupkit.ws.JsonContainer;
+import org.apache.commons.io.IOUtils;
+import org.jboss.resteasy.plugins.providers.multipart.InputPart;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Stateless
@@ -62,8 +50,8 @@ public class CompanyRestService extends AdminBaseRestService {
 	private EmailService emailService;
 	
 	
-	@EJB
-	private ServiceService serviceService;
+//	@EJB
+//	private ServiceService serviceService;
 	
 	
 		
@@ -556,17 +544,9 @@ public class CompanyRestService extends AdminBaseRestService {
 	}
 
 	// para projetos antigos
-	public String pathFilesStore(String idCompany) throws BusinessException, ApplicationException {
-
-		try {
-
-			return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany;
-
-		} catch (Exception e) {
-			throw new ApplicationException("got an error geting the store path file", e);
-		}
+	public String pathFilesStore(String idCompany) throws Exception {
+		return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany;
 	}
-
 
 
 	private String getImageId(Company company, PhotoUpload photoUpload) {
@@ -658,100 +638,100 @@ public class CompanyRestService extends AdminBaseRestService {
 
 
 	
-	@SecuredAdmin
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	@Path("/saveService")
-	public String saveService(Service service)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		UserB userB = getUserTokenSession();;
-		
-		try { 
-			
-			if(service.getIdCompany() == null || service.getIdCompany().equals("null")){
-				String idCompany = userB.getInfo().get("idCompany");
-				service.setIdCompany(idCompany);
-			}
-			
-			serviceService.save(service);
-			
-			companyService.processService(service);
-			
-			if(configurationService.loadByCode("PRODUCTION").getValueAsBoolean() &&  userB != null && userB.getRole().getFgAdmin() == null || !userB.getRole().getFgAdmin()){
-				
-				Company company = companyService.retrieve(service.getIdCompany());
-				
-				StringBuilder msg = new StringBuilder();
-				
-				msg.append(userB.getName());
-				msg.append(" do salão ");
-				msg.append(company.getFantasyName());
-				msg.append(" adicionou/modificou o servico ");
-				msg.append(service.getName());
-				
-				emailService.sendEmailMessage("alteracaodados@markei.com.br", "Backoffice", msg.toString());
-			}
-			
-			cont.setData(service);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
-	}
+//	@SecuredAdmin
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+//	@Path("/saveService")
+//	public String saveService(Service service)  throws Exception{
+//
+//		String resultStr = null;
+//		JsonContainer cont = new JsonContainer();
+//
+//		UserB userB = getUserTokenSession();;
+//
+//		try {
+//
+//			if(service.getIdCompany() == null || service.getIdCompany().equals("null")){
+//				String idCompany = userB.getInfo().get("idCompany");
+//				service.setIdCompany(idCompany);
+//			}
+//
+//			serviceService.save(service);
+//
+//			companyService.processService(service);
+//
+//			if(configurationService.loadByCode("PRODUCTION").getValueAsBoolean() &&  userB != null && userB.getRole().getFgAdmin() == null || !userB.getRole().getFgAdmin()){
+//
+//				Company company = companyService.retrieve(service.getIdCompany());
+//
+//				StringBuilder msg = new StringBuilder();
+//
+//				msg.append(userB.getName());
+//				msg.append(" do salão ");
+//				msg.append(company.getFantasyName());
+//				msg.append(" adicionou/modificou o servico ");
+//				msg.append(service.getName());
+//
+//				emailService.sendEmailMessage("alteracaodados@markei.com.br", "Backoffice", msg.toString());
+//			}
+//
+//			cont.setData(service);
+//
+//		} catch (Exception e) {
+//
+//			if(!(e instanceof BusinessException)){
+//				e.printStackTrace();
+//			}
+//
+//			cont.setSuccess(false);
+//			cont.setDesc(e.getMessage());
+//
+//			emailService.sendEmailError(e);
+//		}
+//
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		resultStr = mapper.writeValueAsString(cont);
+//
+//		return resultStr;
+//	}
 	
 	
 	
 	
-	@SecuredAdmin
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	@Path("/changeStatusService")
-	public String changeStatusService(Service service)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try { 
-			
-			companyService.changeStatusService(service.getId());
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
-	}
+//	@SecuredAdmin
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+//	@Path("/changeStatusService")
+//	public String changeStatusService(Service service)  throws Exception{
+//
+//		String resultStr = null;
+//		JsonContainer cont = new JsonContainer();
+//
+//		try {
+//
+//			companyService.changeStatusService(service.getId());
+//
+//		} catch (Exception e) {
+//
+//			if(!(e instanceof BusinessException)){
+//				e.printStackTrace();
+//			}
+//
+//			cont.setSuccess(false);
+//			cont.setDesc(e.getMessage());
+//
+//			emailService.sendEmailError(e);
+//		}
+//
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		resultStr = mapper.writeValueAsString(cont);
+//
+//		return resultStr;
+//	}
 	
 	
 	
@@ -795,73 +775,73 @@ public class CompanyRestService extends AdminBaseRestService {
 	
 	
 	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	@Path("/mainSalesOff")
-	public String mainSalesOff(CompanySearch search)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try { 
-			
-			List<SaleOff> list = companyService.mainSalesOff(search);
-			cont.setData(list);
+//	@POST
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+//	@Path("/mainSalesOff")
+//	public String mainSalesOff(CompanySearch search)  throws Exception{
+//
+//		String resultStr = null;
+//		JsonContainer cont = new JsonContainer();
+//
+//		try {
+//
+//			List<SaleOff> list = companyService.mainSalesOff(search);
+//			cont.setData(list);
+//
+//		} catch (Exception e) {
+//
+//			if(!(e instanceof BusinessException)){
+//				e.printStackTrace();
+//			}
+//
+//			cont.setSuccess(false);
+//			cont.setDesc(e.getMessage());
+//
+//			emailService.sendEmailError(e);
+//		}
+//
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		resultStr = mapper.writeValueAsString(cont);
+//
+//		return resultStr;
+//	}
 
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
-	}
 	
 	
 	
-	
-	@GET
-	@Path("/listPros/{idService}")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String listPros(@PathParam("idService") String idService) throws Exception {
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			
-			List<UserCard> listPros = companyService.listPros(idService);
-			cont.setData(listPros);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
-	}
+//	@GET
+//	@Path("/listPros/{idService}")
+//	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+//	public String listPros(@PathParam("idService") String idService) throws Exception {
+//
+//		String resultStr = null;
+//		JsonContainer cont = new JsonContainer();
+//
+//		try {
+//
+//
+//			List<UserCard> listPros = companyService.listPros(idService);
+//			cont.setData(listPros);
+//
+//		} catch (Exception e) {
+//
+//			if(!(e instanceof BusinessException)){
+//				e.printStackTrace();
+//			}
+//
+//			cont.setSuccess(false);
+//			cont.setDesc(e.getMessage());
+//
+//			emailService.sendEmailError(e);
+//		}
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		resultStr = mapper.writeValueAsString(cont);
+//
+//		return resultStr;
+//	}
 	
 	
 	
@@ -926,8 +906,4 @@ public class CompanyRestService extends AdminBaseRestService {
 
 		return resultStr;
 	}
-
-
-
-
 }

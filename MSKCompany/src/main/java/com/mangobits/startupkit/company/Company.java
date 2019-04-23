@@ -156,6 +156,7 @@ public class Company {
 	private String categoriesDesc;
 
 
+	@Field
 	private String category;
 	
 	

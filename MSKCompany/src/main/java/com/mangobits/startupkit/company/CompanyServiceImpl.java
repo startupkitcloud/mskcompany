@@ -55,14 +55,7 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public List<Company> listAll() throws Exception {
-		
-		List<Company> list = null;
-		
-
-			list = companyDAO.listAll();
-
-		
-		return list;
+		return companyDAO.listAll();
 	}
 	
 	
@@ -71,40 +64,28 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<CompanyCard> listActiveCards() throws Exception {
 		
 		List<CompanyCard> listCompanyCard = null;
-		
-
-			List<Company> listComp = listActives();
+		List<Company> listComp = listActives();
 			
-			if(listComp != null){
-				
-				listCompanyCard = new ArrayList<>();
-				
-				for(Company company : listComp){
-					
-					CompanyCard card = createCompanyCard(company);
-					
-					listCompanyCard.add(card);
-				}
+		if(listComp != null){
+			listCompanyCard = new ArrayList<>();
+
+			for(Company company : listComp){
+
+				CompanyCard card = createCompanyCard(company);
+
+				listCompanyCard.add(card);
 			}
-			
+		}
 
-		
 		return listCompanyCard;
 	}
 	
 	
 	@Override
 	public List<Company> listActives() throws Exception {
-		
-		List<Company> list = null;
-		
-
-			list = companyDAO.search(new SearchBuilder()
-					.appendParam("status", CompanyStatusEnum.ACTIVE)
-					.build());
-
-		
-		return list;
+		return companyDAO.search(companyDAO.createBuilder()
+				.appendParamQuery("status", CompanyStatusEnum.ACTIVE)
+				.build());
 	}
 	
 	
@@ -194,116 +175,83 @@ public class CompanyServiceImpl implements CompanyService {
 
 		}
 
-			if(company.getId() == null){
+		if(company.getId() == null){
 
-				company.setCreationDate(new Date());
-				company.setStatus(CompanyStatusEnum.ACTIVE);
-			}
-			
-			if(company.getRating() == null){
-				company.setRating(2.5);
-			}
-			
-			if(company.getBusinessHours() != null){
-				company.setBusinessHoursDesc(WorkingHourUtils.businessHourDesc(company.getBusinessHours()));
-			}
-			
-			if(company.getAddressInfo() != null){
-				new AddressUtils().geocodeAddress(company.getAddressInfo());
-			}
-			
-			new BusinessUtils<>(companyDAO).basicSave(company);
+			company.setCreationDate(new Date());
+			company.setStatus(CompanyStatusEnum.ACTIVE);
+		}
 
+		if(company.getRating() == null){
+			company.setRating(2.5);
+		}
+
+		if(company.getBusinessHours() != null){
+			company.setBusinessHoursDesc(WorkingHourUtils.businessHourDesc(company.getBusinessHours()));
+		}
+
+		if(company.getAddressInfo() != null){
+			new AddressUtils().geocodeAddress(company.getAddressInfo());
+		}
+
+		new BusinessUtils<>(companyDAO).basicSave(company);
 	}
 	
 
 	@Override
 	public Company retrieve(String id) throws Exception {
-		
-		Company company = null;
-		
-
-			company = companyDAO.retrieve(new Company(id));
-			
-
-
-		return company;
+		return companyDAO.retrieve(new Company(id));
 	}
 
 	
 	
 	@Override
 	public Company retrieveByCode(String code) throws Exception {
-		
-		Company company = null;
-		
-
-			Map<String, Object> params = new HashMap<>();
-			params.put("code", code);
-			
-			company = companyDAO.retrieve(params);
-			
-
-		
-		return company;
+		return companyDAO.retrieve(companyDAO.createBuilder()
+				.appendParamQuery("code", code)
+				.build());
 	}
 
 
 	@Override
 	public Company loadByField(String field, String value) throws Exception {
-
-		Company company = null;
-
-			Map<String, Object> params = new HashMap<>();
-			params.put(field, value);
-
-			company = companyDAO.retrieve(params);
-
-		return company;
+		return companyDAO.retrieve(companyDAO.createBuilder()
+				.appendParamQuery(field, value)
+				.build());
 	}
 	
 	
 	
 	@Override
 	public String pathFilesCompany(String idCompany) throws Exception {
-		
-
-			return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany;  
-
+		return configurationService.loadByCode(ConfigurationEnum.PATH_BASE)
+				.getValue() + "/company/" + idCompany;
 	}
 
 
 
 	@Override
 	public void addPhoto(String idCompany, String idPhoto) throws Exception {
-		
+		Company company = companyDAO.retrieve(new Company(idCompany));
 
-			Company company = companyDAO.retrieve(new Company(idCompany));
-			
-			if(company.getGallery() == null){
-				company.setGallery(new ArrayList<>());
-			}
-			
-			company.getGallery().add(new GalleryItem(idPhoto));
-			
-			companyDAO.update(company);
+		if(company.getGallery() == null){
+			company.setGallery(new ArrayList<>());
+		}
 
+		company.getGallery().add(new GalleryItem(idPhoto));
+		companyDAO.update(company);
 	}
 
 
 
 	@Override
 	public void removePhoto(String idCompany, String idPhoto) throws Exception {
-		
+		Company company = companyDAO.retrieve(new Company(idCompany));
 
-			Company company = companyDAO.retrieve(new Company(idCompany));
-			
-			if(company.getGallery() != null){
-				company.getGallery().remove(idPhoto);
-			}
-			
-			companyDAO.update(company);
+		if(company.getGallery() != null){
+			company.getGallery().remove(idPhoto);
+		}
 
+		companyDAO.update(company);
 	}
 	
 	
@@ -311,19 +259,16 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public void changeStatus(String id) throws Exception {
-		
+		Company company = retrieve(id);
 
-			Company company = retrieve(id);
-			
-			if(company.getStatus() != null && company.getStatus().equals(CompanyStatusEnum.ACTIVE)){
-				company.setStatus(CompanyStatusEnum.BLOCKED);
-			}
-			else{
-				company.setStatus(CompanyStatusEnum.ACTIVE);
-			}
-			
-			companyDAO.update(company);
+		if(company.getStatus() != null && company.getStatus().equals(CompanyStatusEnum.ACTIVE)){
+			company.setStatus(CompanyStatusEnum.BLOCKED);
+		}
+		else{
+			company.setStatus(CompanyStatusEnum.ACTIVE);
+		}
 
+		companyDAO.update(company);
 	}
 	
 	
@@ -348,51 +293,50 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		List<CompanyCard> list = null;
 
-			SearchBuilder builder = companyDAO.createBuilder();
-			builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
-			
-			if(search.getIdCategory() != null){
-				builder.appendParamQuery("categories.id", search.getIdCategory());
-			}
+		SearchBuilder builder = companyDAO.createBuilder();
+		builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
 
-			if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
-				builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|categories.name", search.getQueryString(), OperationEnum.OR_FIELDS);
-			}
+		if(search.getIdCategory() != null){
+			builder.appendParamQuery("categories.id", search.getIdCategory());
+		}
 
-			if(search.getIdCompanyIn() != null && !search.getIdCompanyIn().isEmpty()){
-				builder.appendParamQuery("id", search.getIdCompanyIn(), OperationEnum.IN);
-			}
+		if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
+			builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|category", search.getQueryString(), OperationEnum.OR_FIELDS);
+		}
 
-			if(search.getLatitude() != null){ 
-		    	builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
-		    	builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
-			}
-			
-			builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
-			
-			builder.setMaxResults(COMPANIES_PAGE);
-			
-			List<Company> listComp = companyDAO.search(builder.build());
-			
-//			if(listComp != null){
+		if(search.getIdCompanyIn() != null && !search.getIdCompanyIn().isEmpty()){
+			builder.appendParamQuery("id", search.getIdCompanyIn(), OperationEnum.IN);
+		}
+
+		if(search.getLatitude() != null){
+			builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
+			builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
+		}
+
+		builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
+
+		builder.setMaxResults(COMPANIES_PAGE);
+
+		List<Company> listComp = companyDAO.search(builder.build());
+
+		if(listComp != null){
+
+			list = new ArrayList<>();
+
+			for(Company company : listComp){
+				CompanyCard card = createCompanyCard(company);
+
+//				Service service = serviceService.firstFeaturedServiceByCategory(company.getId(), search.getIdCategory());
 //
-//				list = new ArrayList<>();
+//				if(service != null){
 //
-//				for(Company company : listComp){
-//					CompanyCard card = createCompanyCard(company);
-//
-//					Service service = serviceService.firstFeaturedServiceByCategory(company.getId(), search.getIdCategory());
-//
-//					if(service != null){
-//
-//						card.setServiceFeatured(service.getName());
-//						card.setPriceFeatured(service.getPrice());
-//					}
-//
-//					list.add(card);
+//					card.setServiceFeatured(service.getName());
+//					card.setPriceFeatured(service.getPrice());
 //				}
-//			}
 
+				list.add(card);
+			}
+		}
 		
 		return list;
 	}
@@ -465,15 +409,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public CompanyCard createCompanyCard(String idCompany) throws Exception {
-		
-		CompanyCard card = null;
-		
-
-			Company company = companyDAO.retrieve(new Company(idCompany));
-			card = createCompanyCard(company);
-			
-
-		
+		CompanyCard card;
+		Company company = companyDAO.retrieve(new Company(idCompany));
+		card = createCompanyCard(company);
 		return card;
 	}
 
@@ -627,21 +565,16 @@ public class CompanyServiceImpl implements CompanyService {
 		Sort sort = new Sort(new SortField("fantasyName", SortField.Type.STRING, true));
 		builder.setSort(sort);
 
-			List<Company> listComps = companyDAO.search(builder.build());
+		List<Company> listComps = companyDAO.search(builder.build());
 
-			if(listComps != null){
-				list = new ArrayList<>();
+		if(listComps != null){
+			list = new ArrayList<>();
 
-				for(Company company : listComps){
-					list.add(createCompanyCard(company));
-				}
+			for(Company company : listComps){
+				list.add(createCompanyCard(company));
 			}
-
+		}
 
 		return list;
 	}
-
-//
-
-
 }

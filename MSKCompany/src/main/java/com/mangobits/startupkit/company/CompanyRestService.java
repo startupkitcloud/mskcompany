@@ -906,4 +906,41 @@ public class CompanyRestService extends AdminBaseRestService {
 
 		return resultStr;
 	}
+
+	@POST
+	@SecuredAdmin
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+	@Path("/searchAdmin")
+	public String searchAdmin(CompanySearch search)  throws Exception{
+
+		String resultStr = null;
+		JsonContainer cont = new JsonContainer();
+
+		try {
+
+			CompanyResultSearch resultSearch = null;
+
+			resultSearch = companyService.searchAdmin(search);
+
+			cont.setData(resultSearch);
+
+		} catch (Exception e) {
+
+			if(!(e instanceof BusinessException)){
+				e.printStackTrace();
+			}
+
+			cont.setSuccess(false);
+			cont.setDesc(e.getMessage());
+
+			emailService.sendEmailError(e);
+		}
+
+
+		ObjectMapper mapper = new ObjectMapper();
+		resultStr = mapper.writeValueAsString(cont);
+
+		return resultStr;
+	}
 }

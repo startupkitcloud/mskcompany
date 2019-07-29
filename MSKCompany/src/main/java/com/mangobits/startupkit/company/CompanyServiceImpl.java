@@ -10,6 +10,7 @@ import com.mangobits.startupkit.core.dao.OperationEnum;
 import com.mangobits.startupkit.core.dao.SearchBuilder;
 import com.mangobits.startupkit.core.dao.SearchProjection;
 import com.mangobits.startupkit.core.exception.BusinessException;
+import com.mangobits.startupkit.core.exception.DAOException;
 import com.mangobits.startupkit.core.photo.GalleryItem;
 import com.mangobits.startupkit.core.utils.BusinessUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,10 +30,10 @@ import java.util.*;
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class CompanyServiceImpl implements CompanyService {
 
-	
+
 	private final int COMPANIES_PAGE = 10;
-	
-	
+
+
 	@EJB
 	private UserBService userBService;
 	
@@ -189,9 +190,9 @@ public class CompanyServiceImpl implements CompanyService {
 			company.setBusinessHoursDesc(WorkingHourUtils.businessHourDesc(company.getBusinessHours()));
 		}
 
-		if(company.getAddressInfo() != null){
-			new AddressUtils().geocodeAddress(company.getAddressInfo());
-		}
+//		if(company.getAddressInfo() != null){
+//			new AddressUtils().geocodeAddress(company.getAddressInfo());
+//		}
 
 		new BusinessUtils<>(companyDAO).basicSave(company);
 	}
@@ -297,7 +298,7 @@ public class CompanyServiceImpl implements CompanyService {
 		builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
 
 		if(search.getIdCategory() != null){
-			builder.appendParamQuery("categories.id", search.getIdCategory());
+			builder.appendParamQuery("category.id", search.getIdCategory());
 		}
 
 		if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
@@ -576,5 +577,70 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 
 		return list;
+	}
+
+	@Override
+	public CompanyResultSearch searchAdmin(CompanySearch search) throws BusinessException {
+
+		CompanyResultSearch companyResultSearch = null;
+
+		try {
+
+			SearchBuilder builder = companyDAO.createBuilder();
+			builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
+
+			if(search.getIdCategory() != null){
+				builder.appendParamQuery("category.id", search.getIdCategory());
+			}
+
+			if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
+				builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|category", search.getQueryString(), OperationEnum.OR_FIELDS);
+			}
+
+			if(search.getIdCompanyIn() != null && !search.getIdCompanyIn().isEmpty()){
+				builder.appendParamQuery("id", search.getIdCompanyIn(), OperationEnum.IN);
+			}
+
+			if(search.getLatitude() != null){
+				builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
+				builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
+			}
+
+			builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
+
+			builder.setMaxResults(COMPANIES_PAGE);
+
+			companyResultSearch = new CompanyResultSearch();
+
+			companyResultSearch.setList(companyDAO.search(builder.build()));
+
+			companyResultSearch.setTotalAmount(totalAmount(builder));
+
+			companyResultSearch.setPageQuantity(pageQuantity(COMPANIES_PAGE, companyResultSearch.getTotalAmount()));
+
+		} catch (Exception e){
+			throw new BusinessException("Got an error searching Companies", e);
+		}
+
+		return companyResultSearch;
+	}
+
+	private int pageQuantity(int numberOfItensByPage, int totalAmount) throws Exception {
+
+		int pageQuantity;
+
+		if (totalAmount % numberOfItensByPage != 0) {
+			pageQuantity = (totalAmount / numberOfItensByPage) + 1;
+		} else {
+			pageQuantity = totalAmount / numberOfItensByPage;
+		}
+
+		return pageQuantity;
+	}
+
+	private Integer totalAmount(SearchBuilder builder) throws DAOException {
+
+		Integer count = companyDAO.count(builder.build());
+		return count;
 	}
 }

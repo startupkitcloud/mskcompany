@@ -2,6 +2,7 @@ package com.mangobits.startupkit.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mangobits.startupkit.catalogue.category.Category;
 import com.mangobits.startupkit.core.address.AddressInfo;
 import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.hibernate.annotations.GenericGenerator;
@@ -111,10 +112,7 @@ public class Company {
 	
 	private Integer phoneCountryCode;
 	
-	
-	
-	
-	@SortableField
+
 	@Spatial	
 	@IndexedEmbedded
 	private AddressInfo addressInfo;
@@ -149,15 +147,11 @@ public class Company {
 	
 	@Transient
 	private Boolean fgOpen;
-	
-	
-	
-	@Transient
-	private String categoriesDesc;
 
 
-	@Field
-	private String category;
+	@OneToOne
+	@IndexedEmbedded(includeEmbeddedObjectId = true)
+	private Category category;
 	
 	
 	
@@ -347,16 +341,6 @@ public class Company {
 
 	public void setFgOpen(Boolean fgOpen) {
 		this.fgOpen = fgOpen;
-	}
-
-
-	public String getCategoriesDesc() {
-		return categoriesDesc;
-	}
-
-
-	public void setCategoriesDesc(String categoriesDesc) {
-		this.categoriesDesc = categoriesDesc;
 	}
 
 
@@ -657,11 +641,11 @@ public class Company {
 		this.branchName = branchName;
 	}
 
-	public String getCategory() {
-		return category;
-	}
+    public Category getCategory() {
+        return category;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

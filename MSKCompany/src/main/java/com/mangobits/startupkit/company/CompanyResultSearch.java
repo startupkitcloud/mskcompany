@@ -1,17 +1,9 @@
 package com.mangobits.startupkit.company;
 
-import org.hibernate.search.annotations.IndexedEmbedded;
-
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
 import java.util.List;
 
 public class CompanyResultSearch {
 
-    @IndexedEmbedded
-    @ElementCollection(
-            fetch = FetchType.EAGER
-    )
     private List<Company> list;
     private int totalAmount;
     private int pageQuantity;

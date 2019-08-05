@@ -255,7 +255,14 @@ public class CompanyServiceImpl implements CompanyService {
 		companyDAO.update(company);
 	}
 	
-	
+	@Override
+	public Company update(Company company){
+
+		companyDAO.update(company);
+
+		return company;
+	}
+
 	
 	
 	@Override

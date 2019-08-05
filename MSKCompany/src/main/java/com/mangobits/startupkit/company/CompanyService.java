@@ -74,4 +74,6 @@ public interface CompanyService{
 	Company loadByField(String field, String value) throws Exception;
 
 	CompanyResultSearch searchAdmin(CompanySearch search) throws BusinessException;
+
+	Company update(Company company);
 }

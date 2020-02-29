@@ -1,7 +1,7 @@
 package com.mangobits.startupkit.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mangobits.startupkit.admin.user.UserB;
+import com.mangobits.startupkit.admin.userb.UserB;
 import com.mangobits.startupkit.core.configuration.Configuration;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
@@ -11,9 +11,8 @@ import com.mangobits.startupkit.core.photo.PhotoUpload;
 import com.mangobits.startupkit.core.photo.PhotoUtils;
 import com.mangobits.startupkit.core.utils.FileUtil;
 import com.mangobits.startupkit.notification.email.EmailService;
-import com.mangobits.startupkit.service.admin.util.AdminBaseRestService;
-import com.mangobits.startupkit.service.admin.util.SecuredAdmin;
-import com.mangobits.startupkit.user.UserCard;
+import com.mangobits.startupkit.admin.util.AdminBaseRestService;
+import com.mangobits.startupkit.admin.util.SecuredAdmin;
 import com.mangobits.startupkit.ws.JsonContainer;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;

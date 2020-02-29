@@ -1,8 +1,8 @@
 package com.mangobits.startupkit.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mangobits.startupkit.admin.user.UserB;
-import com.mangobits.startupkit.admin.user.UserBService;
+import com.mangobits.startupkit.admin.userb.UserB;
+import com.mangobits.startupkit.admin.userb.UserBService;
 import com.mangobits.startupkit.core.address.AddressUtils;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;

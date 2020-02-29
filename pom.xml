@@ -48,7 +48,7 @@
 		<msk-core-version>1.1.23</msk-core-version>
 		<msk-user-version>1.1.55</msk-user-version>
 		<msk-rs-version>1.1.0</msk-rs-version>
-		<msk-admin-version>1.1.14</msk-admin-version>
+		<msk-admin-version>1.1.15</msk-admin-version>
 		<msk-notification-version>1.1.14</msk-notification-version>
 	</properties>
     

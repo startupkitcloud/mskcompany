@@ -3,7 +3,7 @@
   	<modelVersion>4.0.0</modelVersion>
     <groupId>com.mangobits.startupkit.company</groupId>
     <artifactId>MSKCompany</artifactId>
-    <version>1.1.35</version>
+    <version>1.1.36</version>
     <packaging>ejb</packaging>
  
     <name>${project.groupId}:${project.artifactId}</name>
@@ -25,13 +25,7 @@
             <organizationUrl>https://www.mangobits.net</organizationUrl>
         </developer>
     </developers>
- 
-    <!-- <scm>
-        <connection>scm:git:git@github.com:IDRSolutions/maven-OpenViewerFX-src.git</connection>
-        <developerConnection>scm:git:git@github.com:IDRSolutions/maven-OpenViewerFX-src.git</developerConnection>
-        <url>git@github.com:IDRSolutions/maven-OpenViewerFX-src.git</url>
-    </scm> -->
- 
+
  
  	<repositories>
 		<repository>
@@ -51,12 +45,11 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         
         <!-- msk config versions -->
-		<msk-core-version>1.1.15</msk-core-version>
-		<msk-user-version>1.1.48</msk-user-version>
+		<msk-core-version>1.1.23</msk-core-version>
+		<msk-user-version>1.1.55</msk-user-version>
 		<msk-rs-version>1.1.0</msk-rs-version>
-		<msk-admin-version>1.1.11</msk-admin-version>
-		<msk-notification-version>1.1.6</msk-notification-version>
-		<msk-catalogue-version>1.1.58</msk-catalogue-version>
+		<msk-admin-version>1.1.14</msk-admin-version>
+		<msk-notification-version>1.1.14</msk-notification-version>
 	</properties>
     
     <dependencies>
@@ -179,23 +172,13 @@
 		</dependency>
 
 		<dependency>
-    		<groupId>com.mangobits.startupkit.catalogue</groupId>
-    		<artifactId>MSKCatalogue</artifactId>
-    		<version>${msk-catalogue-version}</version>
-		</dependency>
-		
-		
-		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-multipart-provider</artifactId>
 			<version>3.0.14.Final</version>
 			<scope>provided</scope>
 		</dependency>
-
     </dependencies>
-    
-    
- 
+
     <build>
         <finalName>${project.artifactId}</finalName>
         

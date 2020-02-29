@@ -190,9 +190,6 @@ public class CompanyServiceImpl implements CompanyService {
 			company.setBusinessHoursDesc(WorkingHourUtils.businessHourDesc(company.getBusinessHours()));
 		}
 
-//		if(company.getAddressInfo() != null){
-//			new AddressUtils().geocodeAddress(company.getAddressInfo());
-//		}
 
 		new BusinessUtils<>(companyDAO).basicSave(company);
 	}
@@ -279,22 +276,6 @@ public class CompanyServiceImpl implements CompanyService {
 		companyDAO.update(company);
 	}
 	
-	
-	
-	
-//	@Override
-//	public void changeStatusService(String idService) throws Exception {
-//
-//
-//			serviceService.changeStatus(idService);
-//			Service service = serviceService.load(idService);
-//
-//			processService(service);
-//
-//
-//	}
-
-
 
 	@Override
 	public List<CompanyCard> search(CompanySearch search) throws Exception{
@@ -333,56 +314,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 			for(Company company : listComp){
 				CompanyCard card = createCompanyCard(company);
-
-//				Service service = serviceService.firstFeaturedServiceByCategory(company.getId(), search.getIdCategory());
-//
-//				if(service != null){
-//
-//					card.setServiceFeatured(service.getName());
-//					card.setPriceFeatured(service.getPrice());
-//				}
-
 				list.add(card);
 			}
 		}
 		
 		return list;
 	}
-	
-	
-	
-//	@Override
-//	public List<SaleOff> mainSalesOff(CompanySearch search) throws Exception {
-//
-//		List<SaleOff> list = null;
-//
-//
-//			SearchBuilder builder = new SearchBuilder();
-//
-//			builder.appendParam("gt:salesOff.priceBefore", 0.0);
-//			builder.appendParam("gt:salesOff.priceNow", 0.0);
-//
-//			builder.setMaxResults(4);
-//
-//			if(search.getLatitude() != null){
-//				builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
-//			}
-//
-//			List<Company> listComp = companyDAO.search(builder.build());
-//
-//			list = listComp.stream()
-//					.filter(p -> p.getSalesOff() != null && p.getSalesOff().size() > 0)
-//					.map(p -> p.getSalesOff().get(0))
-//					.filter(p -> p.getPriceBefore() != null && p.getPriceNow() != null)
-//					.collect(Collectors.toList());
-//
-////			Collections.shuffle(list);
-//
-//
-//
-//		return list;
-//	}
-
 
 
 	@Override
@@ -413,8 +350,6 @@ public class CompanyServiceImpl implements CompanyService {
 		return card;
 	}
 
-
-
 	@Override
 	public CompanyCard createCompanyCard(String idCompany) throws Exception {
 		CompanyCard card;
@@ -423,152 +358,14 @@ public class CompanyServiceImpl implements CompanyService {
 		return card;
 	}
 
-
-
-//	@Override
-//	public List<UserCard> listPros(String idService) throws Exception {
-//
-//		List<UserCard> list = null;
-//
-//
-//			Service service = serviceService.load(idService);
-//
-//			list = service.getWorkers();
-//
-//
-//
-//		return list;
-//	}
-
-
-
-//	@Override
-//	public void processService(Service service) throws Exception {
-//
-//
-//			Company company = companyDAO.retrieve(new Company(service.getIdCompany()));
-//
-//			boolean update = false;
-//
-//			if(service.getStatus().equals(ItemStatusEnum.BLOCKED)){
-//
-//				if(company.getSalesOff() != null){
-//
-//					SaleOff saleOff = company.getSalesOff().stream()
-//							.filter(p -> p.getIdProduct().equals(service.getId()))
-//							.findFirst()
-//							.orElse(null);
-//
-//					if(saleOff != null){
-//						company.getSalesOff().remove(saleOff);
-//						update = true;
-//					}
-//				}
-//
-//				if(company.getCategories() != null){
-//
-//					Category category = company.getCategories().stream()
-//							.filter(p -> p.getId().equals(service.getCategory().getId()))
-//							.findFirst()
-//							.orElse(null);
-//
-//					if(category != null){
-//						company.getCategories().remove(category);
-//						update = true;
-//					}
-//				}
-//			}
-//			else{
-//
-//				if(service.getSaleOff() != null){
-//					if(company.getSalesOff() == null){
-//						company.setSalesOff(new ArrayList<>());
-//					}
-//
-//					service.getSaleOff().setIdProduct(service.getId());
-//					service.getSaleOff().setIdCompany(company.getId());
-//					service.getSaleOff().setPriceBefore(service.getPrice());
-//					service.getSaleOff().setTitle(service.getName());
-//
-//					company.getSalesOff().add(service.getSaleOff());
-//					update = true;
-//				}
-//
-//				if(company.getCategories() == null){
-//					company.setCategories(new ArrayList<>());
-//				}
-//
-//				Category cat = company.getCategories().stream()
-//						.filter(p -> p.getId().equals(service.getCategory().getId()))
-//						.findFirst()
-//						.orElse(null);
-//
-//
-//				if(cat == null){
-//					company.getCategories().add(service.getCategory());
-//					update = true;
-//				}
-//			}
-//
-//			if(update){
-//				companyDAO.update(company);
-//			}
-//
-//	}
-
-
-
-	@Override
-	public CompanyApp load(String idCompany) throws Exception {
-		
-		CompanyApp companyApp = null;
-		
-
-			companyApp = new CompanyApp();
-			
-			Company company = companyDAO.retrieve(new Company(idCompany));
-
-			if(company == null){
-				throw new BusinessException("company_not_found");
-			}
-			
-			companyApp.setAddress(AddressUtils.textualAddress(company.getAddressInfo()));
-			
-			companyApp.setBusinessHoursDesc(company.getBusinessHoursDesc());
-			
-			companyApp.setDesc(company.getDesc());
-			
-			companyApp.setFantasyName(company.getFantasyName());
-			
-//			List<Service> featuredServices = serviceService.listFeaturedServices(idCompany);
-//			companyApp.setFeaturedServices(featuredServices);
-			
-			companyApp.setGallery(company.getGallery());
-			
-			companyApp.setId(company.getId());
-			
-			companyApp.setLatitude(company.getAddressInfo().getLatitude());
-			
-			companyApp.setLongitude(company.getAddressInfo().getLongitude());
-			
-			companyApp.setRating(company.getRating());
-			
-//			List<Service> services = serviceService.listAllStoreServices(idCompany, true);
-//			companyApp.setServices(services);
-			
-
-		return companyApp;
-	}
-
 	@Override
 	public List<CompanyCard> listByIdParent(String idParent) throws Exception {
 
 		List<CompanyCard> list = null;
 
-		SearchBuilder builder = new SearchBuilder();
-		builder.appendParam("idParent", idParent);
-		builder.appendParam("status", CompanyStatusEnum.ACTIVE);
-
+		SearchBuilder builder = companyDAO.createBuilder();
+		builder.appendParamQuery("idParent", idParent);
+		builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
 
 		Sort sort = new Sort(new SortField("fantasyName", SortField.Type.STRING, true));
 		builder.setSort(sort);
@@ -646,8 +443,6 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	private Integer totalAmount(SearchBuilder builder) throws DAOException {
-
-		Integer count = companyDAO.count(builder.build());
-		return count;
+		return companyDAO.count(builder.build());
 	}
 }

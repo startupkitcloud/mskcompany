@@ -2,7 +2,6 @@ package com.mangobits.startupkit.company;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mangobits.startupkit.catalogue.category.Category;
 import com.mangobits.startupkit.core.address.AddressInfo;
 import com.mangobits.startupkit.core.photo.GalleryItem;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,135 +24,78 @@ public class Company {
 	@GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-	
-	
-	
+
 	private String socialName;
-	
-	
-	
+
 	@Field
 	private String code;
-	
-	
-	
+
 	@Field
 	private String idUser;
-	
-	
-	
+
 	@Field
 	private String document;//cnpj
-	
-	
-	
+
 	@Field
 	private String documentType;
-
-
 
 	@Field
 	@SortableField
 	private String fantasyName;
-	
-	
-	
+
 	@Field
 	private Double rating;
-	
-	
+
 	@Field
 	private String desc;
 	
-	
-	
 	private String colorImage;
-	
-	
 	
 	@Field
 	@Enumerated(EnumType.STRING)
 	private CompanyStatusEnum status;
-	
-	
+
 	@JsonIgnore
 	@Field
 	private Boolean fgFeatured;
 
-
-
 	@Field
 	private Boolean fgBranch;
 
-
 	private String branchName;
-	
-	
 
 	@Field
 	private String phone;
 
-
-
 	@Field
 	private String type;
-
-
 
 	@Field
 	private String idParent;
 	
-	
-	
 	@Field
 	private Long phoneNumber;
-	
-	
-	
+
 	private Integer phoneCountryCode;
-	
 
 	@Spatial	
 	@IndexedEmbedded
 	private AddressInfo addressInfo;
-	
-	
-	
-//	@IndexedEmbedded
-//	private BankAccount bankAccount;
-	
-	
-	
+
 	@Field
 	private String contact;
-	
-	
-	
+
 	private String contactPhone;
-	
-	
-	
+
 	private Long contactPhoneNumber;
-	
-	
-	
+
 	private Integer contactPhoneCountryCode;
-	
-	
-	
+
 	private String contactEmail;
-	
-	
+
 	
 	@Transient
 	private Boolean fgOpen;
-
-
-	@OneToOne
-	@IndexedEmbedded(includeEmbeddedObjectId = true)
-	private Category category;
-	
-	
 	
 	
 	@IndexedEmbedded
@@ -166,19 +108,6 @@ public class Company {
 	@IndexedEmbedded
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<ScheduleException> scheduleException;
-	
-	
-	
-//	@IndexedEmbedded(includeEmbeddedObjectId=true)
-//	@ElementCollection(fetch=FetchType.EAGER)
-//	private List<Category> categories;
-//
-//
-//
-//	@IndexedEmbedded
-//	@ElementCollection(fetch=FetchType.EAGER)
-//	private List<SaleOff> salesOff;
-	
 	
 
 	@ElementCollection(fetch=FetchType.EAGER)
@@ -352,27 +281,6 @@ public class Company {
 	public void setBusinessHours(List<WorkingHour> businessHours) {
 		this.businessHours = businessHours;
 	}
-
-
-
-//	public List<Category> getCategories() {
-//		return categories;
-//	}
-//
-//
-//	public void setCategories(List<Category> categories) {
-//		this.categories = categories;
-//	}
-//
-//
-//	public List<SaleOff> getSalesOff() {
-//		return salesOff;
-//	}
-//
-//
-//	public void setSalesOff(List<SaleOff> salesOff) {
-//		this.salesOff = salesOff;
-//	}
 
 
 	public Date getCreationDate() {
@@ -640,12 +548,4 @@ public class Company {
 	public void setBranchName(String branchName) {
 		this.branchName = branchName;
 	}
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

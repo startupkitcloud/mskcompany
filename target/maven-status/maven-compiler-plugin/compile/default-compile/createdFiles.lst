@@ -3,7 +3,6 @@ com\mangobits\startupkit\company\CompanyDAO.class
 com\mangobits\startupkit\company\CompanyCard.class
 com\mangobits\startupkit\company\CompanyService.class
 com\mangobits\startupkit\company\ScheduleException.class
-com\mangobits\startupkit\company\CompanyApp.class
 com\mangobits\startupkit\company\CompanyResultSearch.class
 com\mangobits\startupkit\company\CompanyStatusEnum.class
 com\mangobits\startupkit\company\CompanyRestService$2.class

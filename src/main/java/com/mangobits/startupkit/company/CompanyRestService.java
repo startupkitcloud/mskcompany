@@ -2,6 +2,7 @@ package com.mangobits.startupkit.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangobits.startupkit.admin.userb.UserB;
+import com.mangobits.startupkit.admin.userb.UserBService;
 import com.mangobits.startupkit.core.configuration.Configuration;
 import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
@@ -13,6 +14,8 @@ import com.mangobits.startupkit.core.utils.FileUtil;
 import com.mangobits.startupkit.notification.email.EmailService;
 import com.mangobits.startupkit.admin.util.AdminBaseRestService;
 import com.mangobits.startupkit.admin.util.SecuredAdmin;
+import com.mangobits.startupkit.user.UserService;
+import com.mangobits.startupkit.user.util.SecuredUser;
 import com.mangobits.startupkit.ws.JsonContainer;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -20,7 +23,9 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.*;
@@ -33,18 +38,27 @@ import java.util.UUID;
 @Stateless
 @Path("/company")
 public class CompanyRestService extends AdminBaseRestService {
-	
-	
+
+
 	@EJB
 	private CompanyService companyService;
-	
-	
-	
+
+	@EJB
+	private UserBService userBService;
+
+	@EJB
+	private UserService userService;
+
+	@Context
+	private HttpServletRequest requestB;
+
+
+
 	@EJB
 	private ConfigurationService configurationService;
-	
-	
-	
+
+
+
 	@EJB
 	private EmailService emailService;
 	
@@ -622,7 +636,7 @@ public class CompanyRestService extends AdminBaseRestService {
 
 	
 	
-	
+	@SecuredUser
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
@@ -632,8 +646,13 @@ public class CompanyRestService extends AdminBaseRestService {
 		String resultStr = null;
 		JsonContainer cont = new JsonContainer();
 		
-		try { 
-			
+		try {
+			String authorizationHeader = this.requestB.getHeader("Authorization");
+			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+				String token = authorizationHeader.substring("Bearer".length()).trim();
+				search.setIdParent(this.userService.retrieveByToken(token).getCode());
+			}
+
 			List<CompanyCard> list = null;
 			
 			list = companyService.search(search);
@@ -735,6 +754,12 @@ public class CompanyRestService extends AdminBaseRestService {
 		JsonContainer cont = new JsonContainer();
 
 		try {
+
+			String authorizationHeader = this.requestB.getHeader("Authorization");
+			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+				String token = authorizationHeader.substring("Bearer".length()).trim();
+				search.setIdParent(this.userBService.retrieveByToken(token).getIdObj());
+			}
 
 			CompanyResultSearch resultSearch = null;
 

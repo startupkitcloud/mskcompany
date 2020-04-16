@@ -12,17 +12,20 @@ public class CompanySearch {
 	
 	
 	private String idUser;
-	
-	
+
+
+	private String idParent;
+
+
 	private Double latitude;
-	
-	
+
+
 	private Double longitude;
-	
-	
+
+
 	private String city;
-	
-	
+
+
 	private Integer page;
 
 
@@ -103,4 +106,13 @@ public class CompanySearch {
 	public void setIdCompanyIn(List<String> idCompanyIn) {
 		this.idCompanyIn = idCompanyIn;
 	}
+
+	public String getIdParent() {
+		return idParent;
+	}
+
+	public void setIdParent(String idParent) {
+		this.idParent = idParent;
+	}
+
 }

@@ -289,8 +289,12 @@ public class CompanyServiceImpl implements CompanyService {
 			builder.appendParamQuery("category.id", search.getIdCategory());
 		}
 
+		if (search.getIdParent() != null) {
+			builder.appendParamQuery("idParent", search.getIdParent());
+		}
+
 		if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
-			builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|category", search.getQueryString(), OperationEnum.OR_FIELDS);
+			builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city", search.getQueryString(), OperationEnum.OR_FIELDS);
 		}
 
 		if(search.getIdCompanyIn() != null && !search.getIdCompanyIn().isEmpty()){
@@ -396,6 +400,11 @@ public class CompanyServiceImpl implements CompanyService {
 			if(search.getIdCategory() != null){
 				builder.appendParamQuery("category.id", search.getIdCategory());
 			}
+
+			if (search.getIdParent() != null) {
+				builder.appendParamQuery("idParent", search.getIdParent());
+			}
+
 
 			if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
 				builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city|category", search.getQueryString(), OperationEnum.OR_FIELDS);

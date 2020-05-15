@@ -3,116 +3,123 @@ package com.mangobits.startupkit.company;
 import java.util.List;
 
 public class CompanySearch {
-	
-	
-	private String queryString;
-	
-	
-	private String idCategory;
-	
-	
-	private String idUser;
 
 
-	private String idParent;
+    private String queryString;
 
 
-	private Double latitude;
+    private String idCategory;
 
 
-	private Double longitude;
+    private String idUser;
 
 
-	private String city;
+    private String idParent;
 
 
-	private Integer page;
+    private Double latitude;
 
 
-	private Integer pageItensNumber;
+    private Double longitude;
 
 
-	private List<String> idCompanyIn;
+    private String city;
+
+    private String contacEmail;
+
+    private Integer page;
+
+    private Integer pageItensNumber;
 
 
-	public String getQueryString() {
-		return queryString;
-	}
+    private List<String> idCompanyIn;
 
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
-	}
 
-	public String getIdCategory() {
-		return idCategory;
-	}
+    public String getQueryString() {
+        return queryString;
+    }
 
-	public void setIdCategory(String idCategory) {
-		this.idCategory = idCategory;
-	}
+    public void setQueryString(String queryString) {
+        this.queryString = queryString;
+    }
 
-	public String getIdUser() {
-		return idUser;
-	}
+    public String getIdCategory() {
+        return idCategory;
+    }
 
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
-	}
+    public void setIdCategory(String idCategory) {
+        this.idCategory = idCategory;
+    }
 
-	public Double getLatitude() {
-		return latitude;
-	}
+    public String getIdUser() {
+        return idUser;
+    }
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
 
-	public Double getLongitude() {
-		return longitude;
-	}
+    public Double getLatitude() {
+        return latitude;
+    }
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public Double getLongitude() {
+        return longitude;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
-	public Integer getPage() {
-		return page;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public Integer getPageItensNumber() {
-		return pageItensNumber;
-	}
+    public Integer getPage() {
+        return page;
+    }
 
-	public void setPageItensNumber(Integer pageItensNumber) {
-		this.pageItensNumber = pageItensNumber;
-	}
+    public void setPage(Integer page) {
+        this.page = page;
+    }
 
-	public List<String> getIdCompanyIn() {
-		return idCompanyIn;
-	}
+    public Integer getPageItensNumber() {
+        return pageItensNumber;
+    }
 
-	public void setIdCompanyIn(List<String> idCompanyIn) {
-		this.idCompanyIn = idCompanyIn;
-	}
+    public void setPageItensNumber(Integer pageItensNumber) {
+        this.pageItensNumber = pageItensNumber;
+    }
 
-	public String getIdParent() {
-		return idParent;
-	}
+    public List<String> getIdCompanyIn() {
+        return idCompanyIn;
+    }
 
-	public void setIdParent(String idParent) {
-		this.idParent = idParent;
-	}
+    public void setIdCompanyIn(List<String> idCompanyIn) {
+        this.idCompanyIn = idCompanyIn;
+    }
 
+    public String getIdParent() {
+        return idParent;
+    }
+
+    public void setIdParent(String idParent) {
+        this.idParent = idParent;
+    }
+
+    public String getContacEmail() {
+        return contacEmail;
+    }
+
+    public void setContacEmail(String contacEmail) {
+        this.contacEmail = contacEmail;
+    }
 }

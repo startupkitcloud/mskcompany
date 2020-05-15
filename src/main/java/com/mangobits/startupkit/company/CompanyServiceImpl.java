@@ -293,6 +293,10 @@ public class CompanyServiceImpl implements CompanyService {
 			builder.appendParamQuery("idParent", search.getIdParent());
 		}
 
+		if (search.getContacEmail() != null) {
+			builder.appendParamQuery("contactEmail", search.getContacEmail());
+		}
+
 		if(search.getQueryString() != null && StringUtils.isNotEmpty(search.getQueryString().trim())){
 			builder.appendParamQuery("fantasyName|addressInfo.street|addressInfo.district|addressInfo.city", search.getQueryString(), OperationEnum.OR_FIELDS);
 		}

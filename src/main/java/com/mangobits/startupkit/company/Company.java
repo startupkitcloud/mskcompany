@@ -54,113 +54,80 @@ public class Company {
 	@Field
 	@Enumerated(EnumType.STRING)
 	private CompanyStatusEnum status;
-
+	@Field
+	@Enumerated(EnumType.STRING)
+	private CompanyStatusEnum visible;
 	@JsonIgnore
 	@Field
 	private Boolean fgFeatured;
-
 	@Field
 	private Boolean fgBranch;
-
 	private String branchName;
-
 	@Field
 	private String phone;
-
 	@Field
 	private String type;
-
 	@Field
 	private String idParent;
-	
 	@Field
 	private Long phoneNumber;
-
 	private Integer phoneCountryCode;
-
-	@Spatial	
+	@Spatial
 	@IndexedEmbedded
 	private AddressInfo addressInfo;
-
 	@Field
 	private String contact;
-
 	private String contactPhone;
-
 	private Long contactPhoneNumber;
-
 	private Integer contactPhoneCountryCode;
-
 	private String contactEmail;
-
-	
 	@Transient
 	private Boolean fgOpen;
-	
-	
 	@IndexedEmbedded
 	@ElementCollection(fetch=FetchType.EAGER)
 	@OrderColumn(name = "seq")
 	private List<WorkingHour> businessHours;
-	
-	
-	
 	@IndexedEmbedded
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<ScheduleException> scheduleException;
-	
-
 	@ElementCollection(fetch=FetchType.EAGER)
 	private List<GalleryItem> gallery;
-	
-	
-	
 	@IndexedEmbedded
 	@ElementCollection(fetch=FetchType.EAGER)
 	private Map<String, String> info;
-	
-	
-	
 	private String businessHoursDesc;
-	
-	
 	@JsonIgnore
 	@Field
 	private Date creationDate;
-	
-	
 	@Transient
 	private Double distance;
-	
-	
 	private Double companyTax;
-	
-	
 	private Double markeiTax;
-	
-	
 	private Double salesManTax;
-	
-	
-	
 	@Field
 	private String idSalesMan;
-	
-	
 	@Field
 	@SortableField
 	private String idPlan;
 	
 	
+	
 	public Company(){
-		
+
 	}
 	
 	
 	public Company(String id){
 		this.id = id;
 	}
-
+	
+	public CompanyStatusEnum getVisible() {
+		return visible;
+	}
+	
+	public void setVisible(CompanyStatusEnum visible) {
+		this.visible = visible;
+	}
 
 	public String getId() {
 		return id;

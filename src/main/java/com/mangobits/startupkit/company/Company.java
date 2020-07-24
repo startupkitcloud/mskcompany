@@ -1,113 +1,97 @@
 package com.mangobits.startupkit.company;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mangobits.startupkit.core.address.AddressInfo;
+import com.mangobits.startupkit.core.annotation.MSKEntity;
+import com.mangobits.startupkit.core.annotation.MSKId;
 import com.mangobits.startupkit.core.photo.GalleryItem;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.search.annotations.*;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
-@JsonIgnoreProperties(value={"hibernateLazyInitializer", "handler"}, ignoreUnknown=true)
-@Entity(name="company")
-@Indexed
+@MSKEntity(name="company")
 public class Company {
-	
-	
-	@Id
-	@DocumentId
-	@GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+	@MSKId
     private String id;
 
 	private String socialName;
 
-	@Field
 	private String code;
 
-	@Field
 	private String idUser;
 
-	@Field
-	private String document;//cnpj
+	private String document;
 
-	@Field
 	private String documentType;
 
-	@Field
-	@SortableField
 	private String fantasyName;
 
-	@Field
 	private Double rating;
 
-	@Field
 	private String desc;
 	
 	private String colorImage;
-	
-	@Field
-	@Enumerated(EnumType.STRING)
+
 	private CompanyStatusEnum status;
-	@Field
-	@Enumerated(EnumType.STRING)
+
 	private CompanyStatusEnum visible;
-	@JsonIgnore
-	@Field
+
 	private Boolean fgFeatured;
-	@Field
+
 	private Boolean fgBranch;
+
 	private String branchName;
-	@Field
+
 	private String phone;
-	@Field
+
 	private String type;
-	@Field
+
 	private String idParent;
-	@Field
+
 	private Long phoneNumber;
+
 	private Integer phoneCountryCode;
-	@Spatial
-	@IndexedEmbedded
+
 	private AddressInfo addressInfo;
-	@Field
+
 	private String contact;
+
 	private String contactPhone;
+
 	private Long contactPhoneNumber;
+
 	private Integer contactPhoneCountryCode;
+
 	private String contactEmail;
-	@Transient
+
+	@BsonIgnore
 	private Boolean fgOpen;
-	@IndexedEmbedded
-	@ElementCollection(fetch=FetchType.EAGER)
-	@OrderColumn(name = "seq")
+
 	private List<WorkingHour> businessHours;
-	@IndexedEmbedded
-	@ElementCollection(fetch=FetchType.EAGER)
+
 	private List<ScheduleException> scheduleException;
-	@ElementCollection(fetch=FetchType.EAGER)
+
 	private List<GalleryItem> gallery;
-	@IndexedEmbedded
-	@ElementCollection(fetch=FetchType.EAGER)
+
 	private Map<String, String> info;
+
 	private String businessHoursDesc;
-	@JsonIgnore
-	@Field
+
 	private Date creationDate;
-	@Transient
+
+	@BsonIgnore
 	private Double distance;
+
 	private Double companyTax;
+
 	private Double markeiTax;
+
 	private Double salesManTax;
-	@Field
+
 	private String idSalesMan;
-	@Field
-	@SortableField
+
 	private String idPlan;
 	
 	

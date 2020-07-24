@@ -1,46 +1,27 @@
 package com.mangobits.startupkit.company;
 
-import java.util.Map;
-
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-
 import com.mangobits.startupkit.core.address.AddressInfo;
-import org.hibernate.search.annotations.IndexedEmbedded;
-import org.hibernate.search.annotations.SortableField;
-import org.hibernate.search.annotations.Spatial;
+
+import java.util.Map;
 
 public class CompanyCard {
 	
 	private String id;
-	
-	
+
 	private String name;
-	
-	
+
 	private String address;
-	
-	
+
 	private Double rating;
-	
-	
+
 	private String serviceFeatured;
-	
-	
+
 	private Double priceFeatured;
-	
-	
+
 	private Double distance;
 
-
-	@SortableField
-	@Spatial
-	@IndexedEmbedded
 	private AddressInfo addressInfo;
-	
-	
-	@IndexedEmbedded
-	@ElementCollection(fetch=FetchType.EAGER)
+
 	private Map<String, String> info;
 	
 

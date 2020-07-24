@@ -110,6 +110,7 @@ public class CompanyCard {
 		return addressInfo;
 	}
 
+
 	public void setAddressInfo(AddressInfo addressInfo) {
 		this.addressInfo = addressInfo;
 	}

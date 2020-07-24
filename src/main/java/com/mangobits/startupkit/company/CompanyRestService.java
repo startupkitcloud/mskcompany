@@ -27,7 +27,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,32 +64,8 @@ public class CompanyRestService extends AdminBaseRestService {
 	@GET
 	@Path("/listAll")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String listAll() throws Exception {
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			List<Company> list = companyService.listAll();
-			cont.setData(list);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public List<Company> listAll() throws Exception {
+		return companyService.listAll();
 	}
 	
 	
@@ -95,223 +73,95 @@ public class CompanyRestService extends AdminBaseRestService {
 	@GET
 	@Path("/listActiveCards")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String listActiveCards() throws Exception {
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			List<CompanyCard> list = companyService.listActiveCards();
-			cont.setData(list);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public List<CompanyCard> listActiveCards() throws Exception {
+		return companyService.listActiveCards();
 	}
 	
-	
-	
+
 	@SecuredAdmin
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/save")
-	public String save(Company company)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try { 
-			
-			companyService.saveCompany(company);
-			cont.setData(company);
-
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public Company save(Company company)  throws Exception{
+		companyService.saveCompany(company);
+		return company;
 	}
 	
-	
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/saveMobile")
-	public String saveMobile(Company company)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try { 
-			
-			companyService.saveCompany(company);
-			cont.setData(company);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public Company saveMobile(Company company)  throws Exception{
+		companyService.saveCompany(company);
+		return company;
 	}
+
 
 	@GET
 	@Path("/load/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String load(@PathParam("id") String id) throws Exception {
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			if(id == null || id.equals("null")){
-				UserB userB = getUserTokenSession();
-				id = userB.getInfo().get("idCompany");	
-			}
-			
-			Company company = companyService.retrieve(id);
-			cont.setData(company);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
+	public Company load(@PathParam("id") String id) throws Exception {
+		if(id == null || id.equals("null")){
+			UserB userB = getUserTokenSession();
+			id = userB.getInfo().get("idCompany");
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+		return companyService.retrieve(id);
 	}
 	
-	
-	
+
 	@GET
 	@Path("/retrieveByCode/{code}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String retrieveByCode(@PathParam("code") String code) throws Exception {
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			Company company = companyService.retrieveByCode(code);
-			cont.setData(company);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public Company retrieveByCode(@PathParam("code") String code) throws Exception {
+		return companyService.retrieveByCode(code);
 	}	
 	
-	
-	
+
 	@GET
 	@Path("/companyImage/{idCompany}/{imageType}")
 	@Produces("image/jpeg")
 	public StreamingOutput companyImage(final @PathParam("idCompany") String idCompany, final @PathParam("imageType") String imageType) throws Exception {
 		
-		return new StreamingOutput() { 
-			
-			@Override
-			public void write(final OutputStream out) throws IOException {
-				
-				Configuration configuration = null;
-				
-				try {
-					
-					configuration = configurationService.loadByCode(ConfigurationEnum.PATH_BASE);
-					
-					String base = configuration.getValue();
-					
-					String path = base + "/company/" + idCompany + "/" + imageType + "_main.jpg";
+		return out -> {
 
-					File file = new File(path);
-					if (!file.exists()) {
-						path = configuration.getValue() + "/company/default/placeholder_" + imageType + ".jpg";
+			Configuration configuration = null;
 
-						File placeholder = new File(path);
-						if (!placeholder.exists()) {
-							path = configuration.getValue() + "/company/default/placeholder.jpg";
-						}
+			try {
+
+				configuration = configurationService.loadByCode(ConfigurationEnum.PATH_BASE);
+
+				String base = configuration.getValue();
+
+				String path = base + "/company/" + idCompany + "/" + imageType + "_main.jpg";
+
+				File file = new File(path);
+				if (!file.exists()) {
+					path = configuration.getValue() + "/company/default/placeholder_" + imageType + ".jpg";
+
+					File placeholder = new File(path);
+					if (!placeholder.exists()) {
+						path = configuration.getValue() + "/company/default/placeholder.jpg";
 					}
+				}
 
 
-					ByteArrayInputStream in =  new ByteArrayInputStream(FileUtil.readFile(path));
-							
-					byte[] buf = new byte[16384]; 
-					
-					int len = in.read(buf);
-					
-					while(len!=-1) { 
-						
-						out.write(buf,0,len); 
-					
-						len = in.read(buf); 
-					} 
-				
-				} catch (Exception e) {
-					e.printStackTrace();
-				}	
+				ByteArrayInputStream in =  new ByteArrayInputStream(FileUtil.readFile(path));
+
+				byte[] buf = new byte[16384];
+
+				int len = in.read(buf);
+
+				while(len!=-1) {
+
+					out.write(buf,0,len);
+
+					len = in.read(buf);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		};
 	}
@@ -322,46 +172,42 @@ public class CompanyRestService extends AdminBaseRestService {
 	@Produces("image/jpeg")
 	public StreamingOutput companyImage(final @PathParam("idCompany") String idCompany) throws Exception {
 		
-		return new StreamingOutput() { 
-			
-			@Override
-			public void write(final OutputStream out) throws IOException {
-				
-				Configuration configuration = null;
-				
-				try {
-					
-					Company company = companyService.retrieve(idCompany);
-					
-					if(company.getGallery() != null && company.getGallery().size() > 0){
-						
-						configuration = configurationService.loadByCode(ConfigurationEnum.PATH_BASE);
-						
-						String base = configuration.getValue();
-						
-						String path = base + "/company/" + idCompany + "/" + company.getGallery().get(0).getId() + "_main.jpg";
+		return out -> {
 
-						File file = new File(path);
-						if (!file.exists()) {
-							path = base + "/company/default/placeholder.jpg";
-						}
-						
-						ByteArrayInputStream in =  new ByteArrayInputStream(FileUtil.readFile(path));
-								
-						byte[] buf = new byte[16384]; 
-						
-						int len = in.read(buf);
-						
-						while(len!=-1) { 
-							
-							out.write(buf,0,len); 
-						
-							len = in.read(buf); 
-						}
+			Configuration configuration = null;
+
+			try {
+
+				Company company = companyService.retrieve(idCompany);
+
+				if(company.getGallery() != null && company.getGallery().size() > 0){
+
+					configuration = configurationService.loadByCode(ConfigurationEnum.PATH_BASE);
+
+					String base = configuration.getValue();
+
+					String path = base + "/company/" + idCompany + "/" + company.getGallery().get(0).getId() + "_main.jpg";
+
+					File file = new File(path);
+					if (!file.exists()) {
+						path = base + "/company/default/placeholder.jpg";
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}	
+
+					ByteArrayInputStream in =  new ByteArrayInputStream(FileUtil.readFile(path));
+
+					byte[] buf = new byte[16384];
+
+					int len = in.read(buf);
+
+					while(len!=-1) {
+
+						out.write(buf,0,len);
+
+						len = in.read(buf);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		};
 	}
@@ -369,66 +215,41 @@ public class CompanyRestService extends AdminBaseRestService {
 	
 	
 	
-	@POST
+	@PUT
 	@Path("/saveCompanyImage")
-	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String saveCompanyImage(PhotoUpload photoUpload) throws Exception{
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			Company company = companyService.retrieve(photoUpload.getIdObject());
-			
-			if(company == null){
-				throw new BusinessException("company with id  '" + photoUpload.getIdObject() + "' not found to attach photo");
-			}
-			
-			//get the final size
-            int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
-            photoUpload.setFinalWidth(finalWidth);
+	public void saveCompanyImage(PhotoUpload photoUpload) throws Exception{
 
-            //soh adiciona na galeria se nao tiver idSubObject
-			String idPhoto = getImageId(company, photoUpload);
+		Company company = companyService.retrieve(photoUpload.getIdObject());
 
-			String path = companyService.pathFilesCompany(company.getId());
-			
-			String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
-			company.setColorImage(mostUsedColor);
-			companyService.saveCompany(company);
-
-			cont.setDesc("OK");
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
+		if(company == null){
+			throw new BusinessException("company with id  '" + photoUpload.getIdObject() + "' not found to attach photo");
 		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
-	}
 
+		//get the final size
+		int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
+		photoUpload.setFinalWidth(finalWidth);
+
+		//soh adiciona na galeria se nao tiver idSubObject
+		String idPhoto = getImageId(company, photoUpload);
+
+		String path = companyService.pathFilesCompany(company.getId());
+
+		String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
+		company.setColorImage(mostUsedColor);
+		companyService.saveCompany(company);
+	}
 
 
 	@POST
 	@Path("/uploadCompanyImage")
 	@Consumes("multipart/form-data")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	public String uploadCompanyImage(MultipartFormDataInput input) throws Exception {
-
 
 		try {
 
 			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-
             int count = 0;
 
             while (true){
@@ -483,62 +304,10 @@ public class CompanyRestService extends AdminBaseRestService {
 
 				return "{\"success\": \"true\"}";
 			}
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
-
 		return null;
-	}
-
-	// para projetos antigos como o BlocodePedidos
-	@POST
-	@Path("/uploadStoreImage")
-	@Consumes("multipart/form-data")
-	public String uploadStoreImage(MultipartFormDataInput input) throws IOException {
-
-		try {
-
-			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-
-			System.out.println();
-
-			//get the object id
-			InputPart inputPartsId = uploadForm.get("photo_id").get(0);
-			String photoId = inputPartsId.getBody(String.class, null);
-
-			//get the config data to crop
-			InputPart inputPartsData = uploadForm.get("avatar_data").get(0);
-			String json = inputPartsData.getBody(String.class, null);
-			ObjectMapper mapper = new ObjectMapper();
-			PhotoUpload photoUpload = (PhotoUpload) mapper.readValue(json, PhotoUpload.class);
-
-			// Get file data to save
-			InputPart inputPartsFile = uploadForm.get("avatar_file").get(0);
-			InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
-			byte[] bytes = IOUtils.toByteArray(inputStream);
-			photoUpload.setPhotoBytes(bytes);
-
-			String imageType = uploadForm.get("avatar-type").get(0).getBody(String.class, null);
-
-			String path = pathFilesStore(photoId);
-
-			new PhotoUtils().saveImage(photoUpload, path, imageType);
-
-			return "{\"state\": 200}";
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	// para projetos antigos
-	public String pathFilesStore(String idCompany) throws Exception {
-		return configurationService.loadByCode(ConfigurationEnum.PATH_BASE).getValue() + "/company/" + idCompany;
 	}
 
 
@@ -558,7 +327,6 @@ public class CompanyRestService extends AdminBaseRestService {
 			company.getGallery().add(gi);
 		}
 		else{
-
 			idPhoto = photoUpload.getIdSubObject();
 		}
 		return idPhoto;
@@ -595,188 +363,57 @@ public class CompanyRestService extends AdminBaseRestService {
 		return resultStr;
 	}	
 	
-	
-	
-	@POST
+
+	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/changeStatus")
-	public String changeStatus(Company company)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try { 
-			
-			companyService.changeStatus(company.getId());
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public void changeStatus(Company company)  throws Exception{
+		companyService.changeStatus(company.getId());
 	}
 
-	
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/search")
-	public String search(CompanySearch search)  throws Exception{ 
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			String authorizationHeader = this.requestB.getHeader("Authorization");
-			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-				String token = authorizationHeader.substring("Bearer".length()).trim();
-				search.setIdParent(this.userService.retrieveByToken(token).getCode());
-			}
-
-			List<CompanyCard> list = null;
-			
-			list = companyService.search(search);
-			
-			cont.setData(list);
-
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
+	public List<CompanyCard> search(CompanySearch search)  throws Exception{
+		String authorizationHeader = this.requestB.getHeader("Authorization");
+		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+			String token = authorizationHeader.substring("Bearer".length()).trim();
+			search.setIdParent(this.userService.retrieveByToken(token).getCode());
 		}
-		
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+		return companyService.search(search);
 	}
-	
-
 	
 
 	@GET
 	@Path("/loadCompany/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String loadCompany(@PathParam("id") String id) throws Exception {
-		
-		String resultStr;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			Company company = companyService.retrieve(id);
-			cont.setData(company);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public Company loadCompany(@PathParam("id") String id) throws Exception {
+		return companyService.retrieve(id);
 	}
+
 
 	@GET
 	@Path("/listByIdParent/{idParent}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String listByIdParent(@PathParam("idParent") String idParent) throws Exception {
-
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-
-		try {
-
-			List<CompanyCard> list = companyService.listByIdParent(idParent);
-			cont.setData(list);
-
-		} catch (Exception e) {
-
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-
-			emailService.sendEmailError(e);
-		}
-
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-
-		return resultStr;
+	public List<CompanyCard> listByIdParent(@PathParam("idParent") String idParent) throws Exception {
+		return companyService.listByIdParent(idParent);
 	}
+
 
 	@POST
 	@SecuredAdmin
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
 	@Path("/searchAdmin")
-	public String searchAdmin(CompanySearch search)  throws Exception{
-
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-
-		try {
-
-			String authorizationHeader = this.requestB.getHeader("Authorization");
-			if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-				String token = authorizationHeader.substring("Bearer".length()).trim();
-				search.setIdParent(this.userBService.retrieveByToken(token).getIdObj());
-			}
-
-			CompanyResultSearch resultSearch = null;
-
-			resultSearch = companyService.searchAdmin(search);
-
-			cont.setData(resultSearch);
-
-		} catch (Exception e) {
-
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-
-			emailService.sendEmailError(e);
+	public CompanyResultSearch searchAdmin(CompanySearch search)  throws Exception{
+		String authorizationHeader = this.requestB.getHeader("Authorization");
+		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+			String token = authorizationHeader.substring("Bearer".length()).trim();
+			search.setIdParent(this.userBService.retrieveByToken(token).getIdObj());
 		}
-
-
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-
-		return resultStr;
+		return companyService.searchAdmin(search);
 	}
 }

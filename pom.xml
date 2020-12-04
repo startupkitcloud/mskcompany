@@ -105,7 +105,7 @@
 								<addClasspath>true</addClasspath>
 							</manifest>
 				            <manifestEntries>
-				               <Dependencies>org.hibernate.ogm:5.0 services, org.hibernate.ogm.mongodb:5.0 services</Dependencies>
+
 				            </manifestEntries>
 				         </archive>
 					</configuration>

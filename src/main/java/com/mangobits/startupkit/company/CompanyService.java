@@ -44,5 +44,5 @@ public interface CompanyService{
 
 	CompanyResultSearch searchAdmin(CompanySearch search) throws BusinessException;
 
-	Company update(Company company);
+	Company update(Company company) throws Exception;
 }

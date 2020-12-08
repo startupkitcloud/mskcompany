@@ -5,26 +5,26 @@ import java.util.List;
 public class CompanyResultSearch {
 
     private List<Company> list;
-    private int totalAmount;
-    private int pageQuantity;
+    private long totalAmount;
+    private long pageQuantity;
 
     public CompanyResultSearch() {
     }
 
 
-    public int getTotalAmount() {
+    public long getTotalAmount() {
         return this.totalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(long totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public int getPageQuantity() {
+    public long getPageQuantity() {
         return this.pageQuantity;
     }
 
-    public void setPageQuantity(int pageQuantity) {
+    public void setPageQuantity(long pageQuantity) {
         this.pageQuantity = pageQuantity;
     }
 

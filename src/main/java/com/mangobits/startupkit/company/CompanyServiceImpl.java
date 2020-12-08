@@ -8,15 +8,10 @@ import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
 import com.mangobits.startupkit.core.configuration.ConfigurationService;
 import com.mangobits.startupkit.core.dao.OperationEnum;
 import com.mangobits.startupkit.core.dao.SearchBuilder;
-import com.mangobits.startupkit.core.dao.SearchProjection;
 import com.mangobits.startupkit.core.exception.BusinessException;
-import com.mangobits.startupkit.core.exception.DAOException;
 import com.mangobits.startupkit.core.photo.GalleryItem;
 import com.mangobits.startupkit.core.utils.BusinessUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.SortField;
-import org.hibernate.search.spatial.DistanceSortField;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -24,7 +19,10 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.enterprise.inject.New;
 import javax.inject.Inject;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -33,20 +31,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	private final int COMPANIES_PAGE = 10;
 
-
 	@EJB
 	private UserBService userBService;
-	
-	
+
 	@EJB
 	private ConfigurationService configurationService;
-	
-	
-//	@EJB
-//	private ServiceService serviceService;
-	
-	
-	
+
 	@New
 	@Inject
 	private CompanyDAO companyDAO;
@@ -161,7 +151,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 			if (company.getId() == null){
 				SearchBuilder builder = new SearchBuilder();
-				builder.appendParam("document", company.getDocument());
+				builder.appendParamQuery("document", company.getDocument());
 				List<Company> listComp = companyDAO.search(builder.build());
 				if (listComp != null && listComp.size() > 0){
 					throw new BusinessException("document_already_used");
@@ -253,7 +243,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 	
 	@Override
-	public Company update(Company company){
+	public Company update(Company company) throws Exception{
 
 		companyDAO.update(company);
 
@@ -306,8 +296,7 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 
 		if(search.getLatitude() != null){
-			builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
-			builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
+			//TODO - Implementar ordenacao por geolocalizacao
 		}
 
 		builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
@@ -374,9 +363,7 @@ public class CompanyServiceImpl implements CompanyService {
 		SearchBuilder builder = companyDAO.createBuilder();
 		builder.appendParamQuery("idParent", idParent);
 		builder.appendParamQuery("status", CompanyStatusEnum.ACTIVE);
-
-		Sort sort = new Sort(new SortField("fantasyName", SortField.Type.STRING, true));
-		builder.setSort(sort);
+		builder.appendSort("fantasyName", 1);
 
 		List<Company> listComps = companyDAO.search(builder.build());
 
@@ -419,8 +406,7 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 
 			if(search.getLatitude() != null){
-				builder.setSort(new Sort(new DistanceSortField(search.getLatitude(), search.getLongitude(), "addressInfo")));
-				builder.setProjection(new SearchProjection(search.getLatitude(), search.getLongitude(), "addressInfo", "distance"));
+				//TODO - Implementar ordenacao por geolocalizacao
 			}
 
 			builder.setFirst(COMPANIES_PAGE * (search.getPage() - 1));
@@ -442,9 +428,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyResultSearch;
 	}
 
-	private int pageQuantity(int numberOfItensByPage, int totalAmount) throws Exception {
+	private long pageQuantity(int numberOfItensByPage, long totalAmount) throws Exception {
 
-		int pageQuantity;
+		long pageQuantity;
 
 		if (totalAmount % numberOfItensByPage != 0) {
 			pageQuantity = (totalAmount / numberOfItensByPage) + 1;
@@ -455,7 +441,7 @@ public class CompanyServiceImpl implements CompanyService {
 		return pageQuantity;
 	}
 
-	private Integer totalAmount(SearchBuilder builder) throws DAOException {
+	private Long totalAmount(SearchBuilder builder) {
 		return companyDAO.count(builder.build());
 	}
 }

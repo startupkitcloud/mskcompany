@@ -40,23 +40,23 @@ public class CompanyServiceImpl implements CompanyService {
 	@New
 	@Inject
 	private CompanyDAO companyDAO;
-	
-	
-	
-	
+
+
+
+
 	@Override
 	public List<Company> listAll() throws Exception {
 		return companyDAO.listAll();
 	}
-	
-	
-	
+
+
+
 	@Override
 	public List<CompanyCard> listActiveCards() throws Exception {
-		
+
 		List<CompanyCard> listCompanyCard = null;
 		List<Company> listComp = listActives();
-			
+
 		if(listComp != null){
 			listCompanyCard = new ArrayList<>();
 
@@ -70,16 +70,16 @@ public class CompanyServiceImpl implements CompanyService {
 
 		return listCompanyCard;
 	}
-	
-	
+
+
 	@Override
 	public List<Company> listActives() throws Exception {
 		return companyDAO.search(companyDAO.createBuilder()
 				.appendParamQuery("status", CompanyStatusEnum.ACTIVE)
 				.build());
 	}
-	
-	
+
+
 	@Deprecated
 	@Override
 	public void save(Company company) throws Exception {
@@ -142,8 +142,8 @@ public class CompanyServiceImpl implements CompanyService {
 			userBService.createNewUser(userB);
 		}
 	}
-	
-	
+
+
 	@Override
 	public void saveCompany (Company company) throws Exception {
 
@@ -158,6 +158,9 @@ public class CompanyServiceImpl implements CompanyService {
 				}
 			}else {
 				Company companyBase = retrieve(company.getId());
+				if(companyBase == null){
+					throw new BusinessException("company_not_found");
+				}
 				if (companyBase.getDocument() != null && !companyBase.getDocument().equals(company.getDocument())){
 					throw new BusinessException("document_cannot_be_changed");
 				}
@@ -183,15 +186,15 @@ public class CompanyServiceImpl implements CompanyService {
 
 		new BusinessUtils<>(companyDAO).basicSave(company);
 	}
-	
+
 
 	@Override
 	public Company retrieve(String id) throws Exception {
 		return companyDAO.retrieve(new Company(id));
 	}
 
-	
-	
+
+
 	@Override
 	public Company retrieveByCode(String code) throws Exception {
 		return companyDAO.retrieve(companyDAO.createBuilder()
@@ -206,9 +209,9 @@ public class CompanyServiceImpl implements CompanyService {
 				.appendParamQuery(field, value)
 				.build());
 	}
-	
-	
-	
+
+
+
 	@Override
 	public String pathFilesCompany(String idCompany) throws Exception {
 		return configurationService.loadByCode(ConfigurationEnum.PATH_BASE)
@@ -241,7 +244,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 		companyDAO.update(company);
 	}
-	
+
 	@Override
 	public Company update(Company company) throws Exception{
 
@@ -250,8 +253,8 @@ public class CompanyServiceImpl implements CompanyService {
 		return company;
 	}
 
-	
-	
+
+
 	@Override
 	public void changeStatus(String id) throws Exception {
 		Company company = retrieve(id);
@@ -265,11 +268,11 @@ public class CompanyServiceImpl implements CompanyService {
 
 		companyDAO.update(company);
 	}
-	
+
 
 	@Override
 	public List<CompanyCard> search(CompanySearch search) throws Exception{
-		
+
 		List<CompanyCard> list = null;
 
 		SearchBuilder builder = companyDAO.createBuilder();
@@ -314,19 +317,19 @@ public class CompanyServiceImpl implements CompanyService {
 				list.add(card);
 			}
 		}
-		
+
 		return list;
 	}
 
 
 	@Override
 	public CompanyCard createCompanyCard(Company company) throws Exception {
-		
+
 		CompanyCard card = null;
-		
+
 
 			card = new CompanyCard();
-			
+
 			try {
 				card.setDistance((Double)companyDAO.forceGet(company, "distance"));
 			}
@@ -339,11 +342,11 @@ public class CompanyServiceImpl implements CompanyService {
 			card.setName(company.getFantasyName());
 			card.setRating(company.getRating());
 			card.setAddressInfo(company.getAddressInfo());
-			
+
 			if(company.getInfo() != null){
 				card.setInfo(company.getInfo());
 			}
-		
+
 		return card;
 	}
 

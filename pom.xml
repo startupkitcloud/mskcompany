@@ -1,22 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
+
   	<modelVersion>4.0.0</modelVersion>
     <groupId>com.mangobits.startupkit.company</groupId>
     <artifactId>MSKCompany</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.2</version>
     <packaging>ejb</packaging>
- 
+
     <name>${project.groupId}:${project.artifactId}</name>
     <description>MangoBits StartupKit Company</description>
     <url>http://startupkit.mangobits.net/</url>
- 
+
     <licenses>
         <license>
             <name>LGPL license, Version 3.0</name>
             <url>https://www.gnu.org/licenses/lgpl.txt</url>
         </license>
     </licenses>
- 
+
     <developers>
         <developer>
             <name>Diego Mondego</name>
@@ -32,18 +32,18 @@
     		<id>mangobits-startupkit-repository</id>
     		<url>http://artifactory.mangobits.com/artifactory/startupkit/</url>
 		</repository>
-		
+
 		<repository>
     		<id>gcm-server-repository</id>
     		<url>https://raw.githubusercontent.com/slorber/gcm-server-repository/master/releases/</url>
 		</repository>
 	</repositories>
- 
+
  	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        
+
         <!-- msk config versions -->
 		<msk-core-version>2.0.6</msk-core-version>
 		<msk-user-version>2.0.4</msk-user-version>
@@ -88,10 +88,10 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
-        
+
         <pluginManagement>
 			<plugins>
-			
+
 				<!-- ejb plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -99,7 +99,7 @@
 					<version>2.5</version>
 					<configuration>
 						<ejbVersion>3.2</ejbVersion>
-						
+
 						<archive>
 							<manifest>
 								<addClasspath>true</addClasspath>

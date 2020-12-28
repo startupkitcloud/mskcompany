@@ -1,6 +1,6 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
-import com.mangobits.startupkit.core.address.AddressInfo;
+import org.startupkit.core.address.AddressInfo;
 
 import java.util.Map;
 

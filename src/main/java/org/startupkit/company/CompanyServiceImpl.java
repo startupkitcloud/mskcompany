@@ -1,16 +1,16 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mangobits.startupkit.admin.userb.UserB;
-import com.mangobits.startupkit.admin.userb.UserBService;
-import com.mangobits.startupkit.core.address.AddressUtils;
-import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
-import com.mangobits.startupkit.core.configuration.ConfigurationService;
-import com.mangobits.startupkit.core.dao.OperationEnum;
-import com.mangobits.startupkit.core.dao.SearchBuilder;
-import com.mangobits.startupkit.core.exception.BusinessException;
-import com.mangobits.startupkit.core.photo.GalleryItem;
-import com.mangobits.startupkit.core.utils.BusinessUtils;
+import org.startupkit.admin.userb.UserB;
+import org.startupkit.admin.userb.UserBService;
+import org.startupkit.core.address.AddressUtils;
+import org.startupkit.core.configuration.ConfigurationEnum;
+import org.startupkit.core.configuration.ConfigurationService;
+import org.startupkit.core.dao.OperationEnum;
+import org.startupkit.core.dao.SearchBuilder;
+import org.startupkit.core.exception.BusinessException;
+import org.startupkit.core.photo.GalleryItem;
+import org.startupkit.core.utils.BusinessUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.ejb.EJB;

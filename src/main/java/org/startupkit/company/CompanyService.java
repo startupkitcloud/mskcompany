@@ -1,6 +1,5 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
-import com.mangobits.startupkit.core.exception.BusinessException;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -42,7 +41,7 @@ public interface CompanyService{
 
 	Company loadByField(String field, String value) throws Exception;
 
-	CompanyResultSearch searchAdmin(CompanySearch search) throws BusinessException;
+	CompanyResultSearch searchAdmin(CompanySearch search) throws Exception;
 
 	Company update(Company company) throws Exception;
 }

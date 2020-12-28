@@ -1,24 +1,22 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mangobits.startupkit.admin.userb.UserB;
-import com.mangobits.startupkit.admin.userb.UserBService;
-import com.mangobits.startupkit.admin.util.AdminBaseRestService;
-import com.mangobits.startupkit.admin.util.SecuredAdmin;
-import com.mangobits.startupkit.core.configuration.Configuration;
-import com.mangobits.startupkit.core.configuration.ConfigurationEnum;
-import com.mangobits.startupkit.core.configuration.ConfigurationService;
-import com.mangobits.startupkit.core.exception.BusinessException;
-import com.mangobits.startupkit.core.photo.GalleryItem;
-import com.mangobits.startupkit.core.photo.PhotoUpload;
-import com.mangobits.startupkit.core.photo.PhotoUtils;
-import com.mangobits.startupkit.core.utils.FileUtil;
-import com.mangobits.startupkit.notification.email.EmailService;
-import com.mangobits.startupkit.user.UserService;
-import com.mangobits.startupkit.ws.JsonContainer;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+import org.startupkit.admin.userb.UserB;
+import org.startupkit.admin.userb.UserBService;
+import org.startupkit.admin.util.AdminBaseRestService;
+import org.startupkit.admin.util.SecuredAdmin;
+import org.startupkit.core.configuration.Configuration;
+import org.startupkit.core.configuration.ConfigurationEnum;
+import org.startupkit.core.configuration.ConfigurationService;
+import org.startupkit.core.exception.BusinessException;
+import org.startupkit.core.photo.GalleryItem;
+import org.startupkit.core.photo.PhotoUpload;
+import org.startupkit.core.photo.PhotoUtils;
+import org.startupkit.core.utils.FileUtil;
+import org.startupkit.notification.email.EmailService;
+import org.startupkit.user.UserService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -333,34 +331,12 @@ public class CompanyRestService extends AdminBaseRestService {
 	}
 
 
-	@GET
+	@DELETE
 	@Path("/removePhoto/{idCompany}/{idPhoto}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-	public String removePhoto(@PathParam("idCompany") String idCompany, @PathParam("idPhoto") String idPhoto) throws Exception {
-		
-		String resultStr = null;
-		JsonContainer cont = new JsonContainer();
-		
-		try {
-			
-			companyService.removePhoto(idCompany, idPhoto);
-			
-		} catch (Exception e) {
-			
-			if(!(e instanceof BusinessException)){
-				e.printStackTrace();
-			}
-			
-			cont.setSuccess(false);
-			cont.setDesc(e.getMessage());
-			
-			emailService.sendEmailError(e);
-		}
-		
-		ObjectMapper mapper = new ObjectMapper();
-		resultStr = mapper.writeValueAsString(cont);
-		
-		return resultStr;
+	public void removePhoto(@PathParam("idCompany") String idCompany,
+							@PathParam("idPhoto") String idPhoto) throws Exception {
+		companyService.removePhoto(idCompany, idPhoto);
 	}	
 	
 

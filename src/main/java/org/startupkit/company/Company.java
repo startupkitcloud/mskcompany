@@ -1,9 +1,9 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
-import com.mangobits.startupkit.core.address.AddressInfo;
-import com.mangobits.startupkit.core.annotation.MSKEntity;
-import com.mangobits.startupkit.core.annotation.MSKId;
-import com.mangobits.startupkit.core.photo.GalleryItem;
+import org.startupkit.core.address.AddressInfo;
+import org.startupkit.core.annotation.MSKEntity;
+import org.startupkit.core.annotation.MSKId;
+import org.startupkit.core.photo.GalleryItem;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
 import java.util.List;
 

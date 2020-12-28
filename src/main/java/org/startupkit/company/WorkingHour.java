@@ -1,18 +1,11 @@
-package com.mangobits.startupkit.company;
+package org.startupkit.company;
 
-import javax.persistence.Embeddable;
-
-
-@Embeddable
 public class WorkingHour {
 
-
 	private Integer weekDay;
-	
-	
+
 	private String hourBegin;
-	
-	
+
 	private String hourEnd;
 
 

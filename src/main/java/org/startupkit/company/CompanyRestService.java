@@ -7,15 +7,14 @@ import org.startupkit.admin.userb.UserB;
 import org.startupkit.admin.userb.UserBService;
 import org.startupkit.admin.util.AdminBaseRestService;
 import org.startupkit.admin.util.SecuredAdmin;
+import org.startupkit.core.bucket.BucketService;
 import org.startupkit.core.configuration.Configuration;
 import org.startupkit.core.configuration.ConfigurationEnum;
 import org.startupkit.core.configuration.ConfigurationService;
 import org.startupkit.core.exception.BusinessException;
 import org.startupkit.core.photo.GalleryItem;
 import org.startupkit.core.photo.PhotoUpload;
-import org.startupkit.core.photo.PhotoUtils;
 import org.startupkit.core.utils.FileUtil;
-import org.startupkit.notification.email.EmailService;
 import org.startupkit.user.UserService;
 
 import javax.ejb.EJB;
@@ -55,7 +54,7 @@ public class CompanyRestService extends AdminBaseRestService {
 	private ConfigurationService configurationService;
 
 	@EJB
-	private EmailService emailService;
+	private BucketService bucketService;
 	
 
 	@SecuredAdmin
@@ -132,7 +131,7 @@ public class CompanyRestService extends AdminBaseRestService {
 
 				String base = configuration.getValue();
 
-				String path = base + "/company/" + idCompany + "/" + imageType + "_main.jpg";
+				String path = base + "/company/companyImage/" + idCompany + "/" + imageType + "_main.jpg";
 
 				File file = new File(path);
 				if (!file.exists()) {
@@ -184,7 +183,7 @@ public class CompanyRestService extends AdminBaseRestService {
 
 					String base = configuration.getValue();
 
-					String path = base + "/company/" + idCompany + "/" + company.getGallery().get(0).getId() + "_main.jpg";
+					String path = base + "/company/companyImage/" + idCompany + "/" + company.getGallery().get(0).getId() + "_main.jpg";
 
 					File file = new File(path);
 					if (!file.exists()) {
@@ -229,12 +228,13 @@ public class CompanyRestService extends AdminBaseRestService {
 		photoUpload.setFinalWidth(finalWidth);
 
 		//soh adiciona na galeria se nao tiver idSubObject
-		String idPhoto = getImageId(company, photoUpload);
+		GalleryItem gi = getGalleryItem(company, photoUpload);
 
-		String path = companyService.pathFilesCompany(company.getId());
+		String path = configurationService.loadByCode(ConfigurationEnum.PATH_BASE)
+				.getValue();
 
-		String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
-		company.setColorImage(mostUsedColor);
+		company.setUrlImage(bucketService.saveImage(photoUpload, path, "company/companyImage/" + company.getId() + "/" + gi.getId()));
+		gi.setUrlFile(company.getUrlImage());
 		companyService.saveCompany(company);
 	}
 
@@ -248,60 +248,56 @@ public class CompanyRestService extends AdminBaseRestService {
 		try {
 
 			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-            int count = 0;
 
-            while (true){
+			List<InputPart> listFiles =  uploadForm.get("file[0]");
 
-				List<InputPart> listFiles =  uploadForm.get("file["+count+"]");
-				count++;
-
-				if(listFiles == null) {
-					return "{\n\"success\": \"false\"\n\"desc\": \"Missing file[0]\"\n}";
-				}
-				InputPart inputPartsFile = listFiles.get(0);
-
-				//get the object id
-				List<InputPart> inputId =  uploadForm.get("id_object");
-
-				if(inputId == null) {
-					return "{\n\"success\": \"false\"\n\"desc\": \"Missing id_object\"\n}";
-				}
-
-				InputPart inputPartsId = inputId.get(0);
-                String idObject = inputPartsId.getBody(String.class, null);
-
-				Company company = companyService.retrieve(idObject);
-
-				if(company == null){
-					return "{\n\"success\": \"false\"\n\"desc\": \"company with id  '\" + idObject + \"' not found to attach photo\"\n}";
-				}
-
-				PhotoUpload photoUpload = new PhotoUpload();
-				photoUpload.setWidth(400.0);
-
-                // Get file data to save
-                InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
-                byte[] bytes = IOUtils.toByteArray(inputStream);
-                photoUpload.setPhotoBytes(bytes);
-
-
-				//get the final size
-				int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
-				photoUpload.setFinalWidth(finalWidth);
-				String idPhoto;
-
-				//soh adiciona na galeria se nao tiver idSubObject
-				idPhoto = getImageId(company, photoUpload);
-
-				String path = companyService.pathFilesCompany(company.getId());
-
-				String mostUsedColor = new PhotoUtils().saveImage(photoUpload, path, idPhoto);
-
-				company.setColorImage(mostUsedColor);
-				companyService.saveCompany(company);
-
-				return "{\"success\": \"true\"}";
+			if(listFiles == null) {
+				return "{\n\"success\": \"false\"\n\"desc\": \"Missing file[0]\"\n}";
 			}
+			InputPart inputPartsFile = listFiles.get(0);
+
+			//get the object id
+			List<InputPart> inputId =  uploadForm.get("id_object");
+
+			if(inputId == null) {
+				return "{\n\"success\": \"false\"\n\"desc\": \"Missing id_object\"\n}";
+			}
+
+			InputPart inputPartsId = inputId.get(0);
+			String idObject = inputPartsId.getBody(String.class, null);
+
+			Company company = companyService.retrieve(idObject);
+
+			if(company == null){
+				return "{\n\"success\": \"false\"\n\"desc\": \"company with id  '\" + idObject + \"' not found to attach photo\"\n}";
+			}
+
+			PhotoUpload photoUpload = new PhotoUpload();
+			photoUpload.setWidth(400.0);
+
+			// Get file data to save
+			InputStream inputStream = inputPartsFile.getBody(InputStream.class, null);
+			byte[] bytes = IOUtils.toByteArray(inputStream);
+			photoUpload.setPhotoBytes(bytes);
+
+
+			//get the final size
+			int finalWidth = configurationService.loadByCode("SIZE_DETAIL_MOBILE").getValueAsInt();
+			photoUpload.setFinalWidth(finalWidth);
+			String idPhoto;
+
+			//soh adiciona na galeria se nao tiver idSubObject
+			GalleryItem gi = getGalleryItem(company, photoUpload);
+
+			String path = configurationService.loadByCode(ConfigurationEnum.PATH_BASE)
+					.getValue();
+
+			gi.setUrlFile(bucketService.saveImage(photoUpload, path, "company/companyImage/" + company.getId() + "/" + gi.getId()));
+
+			company.setUrlImage(gi.getUrlFile());
+			companyService.saveCompany(company);
+
+			return "{\"success\": \"true\"}";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -309,14 +305,12 @@ public class CompanyRestService extends AdminBaseRestService {
 	}
 
 
-	private String getImageId(Company company, PhotoUpload photoUpload) {
-		String idPhoto;
+	private GalleryItem getGalleryItem(Company company, PhotoUpload photoUpload) {
+		GalleryItem gi;
 		if(photoUpload.getIdSubObject() == null){
 
-			idPhoto = UUID.randomUUID().toString();
-
-			GalleryItem gi = new GalleryItem();
-			gi.setId(idPhoto);
+			gi = new GalleryItem();
+			gi.setId(UUID.randomUUID().toString());
 
 			if(company.getGallery() == null){
 				company.setGallery(new ArrayList<>());
@@ -325,9 +319,13 @@ public class CompanyRestService extends AdminBaseRestService {
 			company.getGallery().add(gi);
 		}
 		else{
-			idPhoto = photoUpload.getIdSubObject();
+			gi = company.getGallery().stream()
+					.filter(p -> p.getId().equals(photoUpload.getIdSubObject()))
+					.findFirst()
+					.orElse(null);
 		}
-		return idPhoto;
+
+		return gi;
 	}
 
 

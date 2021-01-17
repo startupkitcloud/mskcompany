@@ -24,9 +24,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -157,6 +159,38 @@ public class CompanyRestService extends AdminBaseRestService {
 					len = in.read(buf);
 				}
 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		};
+	}
+
+
+	@GET
+	@Path("/companyImage/{idCompany}")
+	@Produces("image/jpeg")
+	public StreamingOutput companyImageBucket(final @PathParam("idCompany") String idCompany) throws Exception {
+
+		return out -> {
+
+			try {
+
+				Company company = companyService.retrieve(idCompany);
+
+				if(company != null && company.getUrlImage() != null){
+					BufferedInputStream in = new BufferedInputStream(new URL(company.getUrlImage()).openStream());
+
+					byte[] buf = new byte[16384];
+
+					int len = in.read(buf);
+
+					while (len != -1) {
+
+						out.write(buf, 0, len);
+
+						len = in.read(buf);
+					}
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

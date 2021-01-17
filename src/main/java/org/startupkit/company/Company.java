@@ -93,6 +93,8 @@ public class Company {
 	private String idSalesMan;
 
 	private String idPlan;
+
+	private String urlImage;
 	
 	
 	
@@ -415,5 +417,13 @@ public class Company {
 
 	public void setIdPlan(String idPlan) {
 		this.idPlan = idPlan;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 }

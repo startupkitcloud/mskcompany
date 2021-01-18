@@ -167,7 +167,7 @@ public class CompanyRestService extends AdminBaseRestService {
 
 
 	@GET
-	@Path("/companyImage/{idCompany}")
+	@Path("/companyImageBucket/{idCompany}")
 	@Produces("image/jpeg")
 	public StreamingOutput companyImageBucket(final @PathParam("idCompany") String idCompany) throws Exception {
 
